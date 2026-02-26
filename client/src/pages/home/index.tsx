@@ -11,7 +11,10 @@ export default function Home() {
         Taro.navigateTo({ url: '/pages/errand/index' })
     }
 
-    const goToHomeService = () => Taro.navigateTo({ url: '/pages/localService/index?mode=chat' })
+    const goToHomeService = () => {
+        Taro.setStorageSync('errandTab', 2)
+        Taro.navigateTo({ url: '/pages/errand/index' })
+    }
 
     const handleAISubmit = () => {
         if (inputValue.trim()) {

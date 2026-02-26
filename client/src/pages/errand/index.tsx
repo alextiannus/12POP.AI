@@ -1,4 +1,4 @@
-import { View, Text, Input, Textarea, ScrollView } from '@tarojs/components'
+import { View, Text, Input, ScrollView } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useState, useRef, useCallback } from 'react'
 import * as api from '../../services/api'
@@ -20,77 +20,102 @@ const TIP_OPTIONS = [0, 2, 5, 8]
 const PLATFORM_FEE_RATE = 0.033
 const MIN_PLATFORM_FEE = 2.0
 
-const QUICK_TYPES = [
-    { icon: '🛒', label: '代买', desc: '超市/小贩中心/餐厅', query: '帮我代买' },
-    { icon: '📋', label: '代取', desc: '文件/包裹/证件', query: '帮我代取' },
-    { icon: '🕐', label: '排队', desc: '餐厅/政府/医院', query: '帮我排队' },
-    { icon: '📮', label: '代寄', desc: '快递/邮件', query: '帮我代寄快递' },
-    { icon: '🔧', label: '其他', desc: 'AI帮你安排', query: '' },
-]
+// AI prompts per tab
+const AI_CONFIG = {
+    errand: {
+        name: '12Tree 跑腿助手',
+        greeting: '你好！我是 12Tree 🌿\n告诉我你想买什么或需要什么帮助，代买代办都可以！',
+        chips: ['帮我买杯咖啡', '超市采购', '帮我取快递'],
+        placeholder: '告诉我你想买什么…',
+    },
+    onsite: {
+        name: '12Tree 上门服务',
+        greeting: '你好！我是 12Tree 🌿\n需要什么上门服务？清洁、维修、搬家、宠物、育儿、美容都可以帮你安排！',
+        chips: ['预约家庭清洁', '上门维修水电', '搬家服务询价'],
+        placeholder: '描述你需要的上门服务…',
+    },
+}
 
 export default function Errand() {
-    // Form mode vs Chat mode
-    const [mode, setMode] = useState<'form' | 'chat'>('form')
+    const [activeTab, setActiveTab] = useState(0)
 
-    // ── Form state ──
-    const [taskDesc, setTaskDesc] = useState('')
+    // ── Delivery Form State ──
     const [pickupAddr, setPickupAddr] = useState('')
     const [deliveryAddr, setDeliveryAddr] = useState('')
-    const [budget, setBudget] = useState('')
-    const [deliveryFee, setDeliveryFee] = useState('')
-    const [tip, setTip] = useState(0)
+    const [remark, setRemark] = useState('')
+    const [deliveryTip, setDeliveryTip] = useState(2)
 
-    // ── Chat state ──
+    // ── AI Chat State (shared by tab 1 & 2) ──
     const [chatInput, setChatInput] = useState('')
     const [isStreaming, setIsStreaming] = useState(false)
-    const [showTracker, setShowTracker] = useState(false)
-    const [trackerStep, setTrackerStep] = useState(0)
     const conversationIdRef = useRef<string | null>(null)
-    const pollingRef = useRef<any>(null)
-    const [messages, setMessages] = useState<ChatMsg[]>([
-        {
+    const [messages, setMessages] = useState<ChatMsg[]>([])
+    const [chatType, setChatType] = useState<'errand' | 'onsite'>('errand')
+
+    // Delivery pricing
+    const deliveryBase = 5.00
+    const deliveryDist = 3.00
+    const deliverySubtotal = deliveryBase + deliveryDist
+    const deliveryPlatformFee = Math.max(deliverySubtotal * PLATFORM_FEE_RATE, MIN_PLATFORM_FEE)
+    const deliveryTotal = deliverySubtotal + deliveryPlatformFee + deliveryTip
+
+    // Initialize AI chat for a given type
+    const initChat = useCallback((type: 'errand' | 'onsite') => {
+        setChatType(type)
+        conversationIdRef.current = null
+        const config = AI_CONFIG[type]
+        setMessages([{
             role: 'ai',
-            content: '你好！我是 12Tree 🌿\n告诉我你需要什么帮助，代买代办都可以！',
+            content: config.greeting,
             time: getNow(),
-            chips: ['帮我买杯咖啡', '帮我去排队', '帮我取快递'],
-        },
-    ])
+            chips: config.chips,
+        }])
+        setChatInput('')
+    }, [])
 
-    // ── Computed pricing ──
-    const budgetNum = parseFloat(budget) || 0
-    const deliveryFeeNum = parseFloat(deliveryFee) || 0
-    const subtotal = budgetNum + deliveryFeeNum
-    const platformFee = Math.max(subtotal * PLATFORM_FEE_RATE, MIN_PLATFORM_FEE)
-    const total = subtotal + platformFee + tip
+    const switchTab = (index: number) => {
+        setActiveTab(index)
+        if (index === 1 && chatType !== 'errand') initChat('errand')
+        if (index === 2 && chatType !== 'onsite') initChat('onsite')
+        if (index === 1 && messages.length === 0) initChat('errand')
+        if (index === 2 && messages.length === 0) initChat('onsite')
+    }
 
-    // ── Handlers ──
+    useDidShow(() => {
+        const savedTab = Taro.getStorageSync('errandTab')
+        if (savedTab !== '' && savedTab !== undefined) {
+            const tabIndex = Number(savedTab)
+            Taro.removeStorageSync('errandTab')
+            setActiveTab(tabIndex)
+            if (tabIndex === 1) initChat('errand')
+            if (tabIndex === 2) initChat('onsite')
+        }
+        // Pending AI query
+        const pendingQuery = Taro.getStorageSync('pendingQuery')
+        if (pendingQuery) {
+            Taro.removeStorageSync('pendingQuery')
+            setActiveTab(1)
+            initChat('errand')
+            setTimeout(() => handleSendMessage(pendingQuery), 300)
+        }
+    })
+
     const ensureConversation = useCallback(async () => {
         if (!conversationIdRef.current) {
             try {
-                const conv = await api.createConversation('errand')
+                const conv = await api.createConversation(chatType)
                 conversationIdRef.current = conv.id
             } catch {
                 conversationIdRef.current = 'local-' + Date.now()
             }
         }
         return conversationIdRef.current!
-    }, [])
-
-    useDidShow(() => {
-        const pendingQuery = Taro.getStorageSync('pendingQuery')
-        if (pendingQuery) {
-            Taro.removeStorageSync('pendingQuery')
-            setMode('chat')
-            setTimeout(() => handleSendMessage(pendingQuery), 300)
-        }
-    })
+    }, [chatType])
 
     const handleSendMessage = async (text?: string) => {
         const msg = text || chatInput
         if (!msg.trim() || isStreaming) return
-        const time = getNow()
-
-        setMessages(prev => [...prev, { role: 'user', content: msg, time }])
+        setMessages(prev => [...prev, { role: 'user', content: msg, time: getNow() }])
         if (!text) setChatInput('')
         setIsStreaming(true)
 
@@ -107,32 +132,19 @@ export default function Errand() {
                 })
             },
             onSlots: () => { },
-            onSlotsComplete: async (data) => {
-                try {
-                    const quote = await api.generateQuote(data.serviceType, data.slotData)
-                    // Pre-fill form from AI chat
-                    const sd = data.slotData
-                    setTaskDesc(sd.item || sd.description || '')
-                    setPickupAddr(sd.from || sd.pickup || '')
-                    setDeliveryAddr(sd.to || sd.delivery || '')
-                    if (quote.lineItems) {
-                        const budgetItem = quote.lineItems.find(l => l.type === 'budget')
-                        const feeItem = quote.lineItems.find(l => l.type === 'fee')
-                        if (budgetItem) setBudget(String(budgetItem.amount))
-                        if (feeItem) setDeliveryFee(String(feeItem.amount))
-                    }
-                    setTimeout(() => setMode('form'), 500)
-                } catch {
-                    setTimeout(() => setMode('form'), 500)
-                }
-            },
+            onSlotsComplete: () => { },
             onDone: () => setIsStreaming(false),
             onError: () => {
                 setMessages(prev => {
                     const updated = [...prev]
                     const lastAi = updated[updated.length - 1]
                     if (lastAi && lastAi.role === 'ai' && !lastAi.content) {
-                        lastAi.content = `好的，我帮你安排！\n\n请切换到表单填写详细信息和预算。`
+                        lastAi.content = chatType === 'errand'
+                            ? `收到！帮你安排 🛒\n\n请告诉我：\n1. 具体要买什么？\n2. 从哪家店？\n3. 送到哪个地址？`
+                            : `好的！帮你安排上门服务 🏠\n\n请告诉我：\n1. 需要什么服务？\n2. 服务地址？\n3. 预期预算？`
+                        lastAi.chips = chatType === 'errand'
+                            ? ['随便你买', '送到我家', '预算S$20']
+                            : ['3房清洁', '我家地址是...', '预算S$80']
                     }
                     return [...updated]
                 })
@@ -141,29 +153,21 @@ export default function Errand() {
         })
     }
 
-    const handleSubmitOrder = () => {
-        if (!taskDesc.trim()) {
-            Taro.showToast({ title: '请描述你的需求', icon: 'none' }); return
+    const handleDeliveryConfirm = () => {
+        if (!pickupAddr.trim()) {
+            Taro.showToast({ title: '请输入取件地址', icon: 'none' }); return
         }
-        if (budgetNum <= 0 && deliveryFeeNum <= 0) {
-            Taro.showToast({ title: '请填写预算或跑腿费', icon: 'none' }); return
+        if (!deliveryAddr.trim()) {
+            Taro.showToast({ title: '请输入送达地址', icon: 'none' }); return
         }
-
         Taro.showModal({
             title: '确认下单',
-            content: `总计 S$${total.toFixed(2)}\n（花费预算 S$${budgetNum.toFixed(2)} + 跑腿费 S$${deliveryFeeNum.toFixed(2)} + 服务费 S$${platformFee.toFixed(2)}${tip > 0 ? ` + 小费 S$${tip.toFixed(2)}` : ''}）`,
+            content: `总计 S$${deliveryTotal.toFixed(2)}\n（配送费 S$${deliverySubtotal.toFixed(2)} + 服务费 S$${deliveryPlatformFee.toFixed(2)}${deliveryTip > 0 ? ` + 小费 S$${deliveryTip.toFixed(2)}` : ''}）`,
             confirmText: '确认支付',
             confirmColor: '#6B2FE0',
-            success: async (res) => {
+            success: (res) => {
                 if (res.confirm) {
-                    setShowTracker(true)
-                    setTrackerStep(0)
-                    // Mock tracker steps
-                    const delays = [2000, 5000, 9000, 14000]
-                    delays.forEach((delay, i) => {
-                        setTimeout(() => setTrackerStep(i + 1), delay)
-                    })
-                    Taro.showToast({ title: '下单成功！', icon: 'success' })
+                    Taro.showToast({ title: '下单成功！配送员正在赶来', icon: 'success' })
                 }
             },
         })
@@ -172,6 +176,8 @@ export default function Errand() {
     const goHome = () => {
         Taro.navigateBack({ delta: 1 }).catch(() => Taro.switchTab({ url: '/pages/home/index' }))
     }
+
+    const config = AI_CONFIG[chatType]
 
     return (
         <View className='errand'>
@@ -182,116 +188,112 @@ export default function Errand() {
                     <View className='back-btn' onClick={goHome}>
                         <Text className='back-arrow'>←</Text>
                     </View>
-                    <Text className='header-title'>代办下单</Text>
-                    <View className='mode-toggle' onClick={() => setMode(mode === 'form' ? 'chat' : 'form')}>
-                        <Text className='mode-toggle-text'>{mode === 'form' ? '💬 AI对话' : '📝 表单'}</Text>
-                    </View>
+                    <Text className='header-title'>
+                        {activeTab === 0 ? '同城配送' : activeTab === 1 ? '跑腿代买' : '上门服务'}
+                    </Text>
+                    <View style={{ width: '56px' }} />
+                </View>
+                <View className='tab-bar'>
+                    {['同城配送', '跑腿（代买）', '上门服务'].map((tab, i) => (
+                        <View
+                            key={i}
+                            className={`tab ${activeTab === i ? 'tab-active' : ''}`}
+                            onClick={() => switchTab(i)}
+                        >
+                            <Text className={`tab-text ${activeTab === i ? 'tab-text-active' : ''}`}>{tab}</Text>
+                            {activeTab === i && <View className='tab-indicator' />}
+                        </View>
+                    ))}
                 </View>
             </View>
 
-            {/* ── Form Mode ── */}
-            {mode === 'form' && (
-                <ScrollView scrollY className='form-body'>
-                    {/* Quick Type Chips */}
-                    <View className='quick-types'>
-                        {QUICK_TYPES.map((t, i) => (
-                            <View className='quick-type-card' key={i} onClick={() => {
-                                if (t.query) {
-                                    setMode('chat')
-                                    setTimeout(() => handleSendMessage(t.query), 300)
-                                } else {
-                                    setMode('chat')
-                                }
-                            }}>
-                                <Text className='qt-icon'>{t.icon}</Text>
-                                <Text className='qt-label'>{t.label}</Text>
-                                <Text className='qt-desc'>{t.desc}</Text>
-                            </View>
-                        ))}
+            {/* ═══ Tab 0: 同城配送 Form ═══ */}
+            {activeTab === 0 && (
+                <ScrollView scrollY className='tab-body'>
+                    {/* Map Placeholder */}
+                    <View className='map-area'>
+                        <View className='map-bg' />
+                        <View className='map-road h' style={{ top: '32%' }} />
+                        <View className='map-road h' style={{ top: '65%' }} />
+                        <View className='map-road v' style={{ left: '28%' }} />
+                        <View className='map-road v' style={{ left: '58%' }} />
+                        <View className='map-route' />
+                        <View className='map-pin pin-a'><Text className='pin-label'>A</Text></View>
+                        <View className='map-pin pin-b'><Text className='pin-label'>B</Text></View>
                     </View>
 
-                    {/* Task Description */}
+                    {/* Address Form */}
                     <View className='form-card'>
-                        <Text className='fc-label'>📝 需求描述</Text>
-                        <Textarea
-                            className='fc-textarea'
-                            placeholder='描述你需要什么帮助，如："帮我去Clementi的NTUC买2瓶牛奶和一箱鸡蛋"'
-                            placeholderClass='fc-placeholder'
-                            value={taskDesc}
-                            onInput={(e) => setTaskDesc(e.detail.value)}
-                            maxlength={300}
-                        />
-                    </View>
-
-                    {/* Addresses */}
-                    <View className='form-card'>
-                        <Text className='fc-label'>📍 地址</Text>
                         <View className='addr-row'>
                             <View className='addr-dot addr-dot-a' />
-                            <Input
-                                className='addr-input'
-                                placeholder='取货/办事地址'
-                                placeholderClass='fc-placeholder'
-                                value={pickupAddr}
-                                onInput={(e) => setPickupAddr(e.detail.value)}
-                            />
+                            <View className='addr-content'>
+                                <Text className='addr-label'>取件地址</Text>
+                                <Input
+                                    className='addr-input'
+                                    placeholder='输入取件地址'
+                                    placeholderClass='fc-placeholder'
+                                    value={pickupAddr}
+                                    onInput={(e) => setPickupAddr(e.detail.value)}
+                                />
+                            </View>
                         </View>
                         <View className='addr-divider' />
                         <View className='addr-row'>
                             <View className='addr-dot addr-dot-b' />
-                            <Input
-                                className='addr-input'
-                                placeholder='送达地址（选填）'
-                                placeholderClass='fc-placeholder'
-                                value={deliveryAddr}
-                                onInput={(e) => setDeliveryAddr(e.detail.value)}
-                            />
+                            <View className='addr-content'>
+                                <Text className='addr-label'>送达地址</Text>
+                                <Input
+                                    className='addr-input'
+                                    placeholder='输入送达地址'
+                                    placeholderClass='fc-placeholder'
+                                    value={deliveryAddr}
+                                    onInput={(e) => setDeliveryAddr(e.detail.value)}
+                                />
+                            </View>
                         </View>
                     </View>
 
-                    {/* Pricing */}
+                    {/* Saved Addresses */}
+                    <View className='saved-row'>
+                        {[
+                            { icon: '🏠', name: '回家' },
+                            { icon: '🏢', name: '公司' },
+                            { icon: '⭐', name: '父母家' },
+                            { icon: '➕', name: '添加' },
+                        ].map((addr, i) => (
+                            <View className='saved-chip' key={i}>
+                                <Text className='saved-icon'>{addr.icon}</Text>
+                                <Text className='saved-name'>{addr.name}</Text>
+                            </View>
+                        ))}
+                    </View>
+
+                    {/* Remark */}
                     <View className='form-card'>
-                        <Text className='fc-label'>💰 费用预算</Text>
+                        <Text className='fc-label'>📝 备注说明</Text>
+                        <Input
+                            className='remark-input'
+                            placeholder='如: 找前台张小姐，取走A4文件袋'
+                            placeholderClass='fc-placeholder'
+                            value={remark}
+                            onInput={(e) => setRemark(e.detail.value)}
+                        />
+                    </View>
 
-                        <View className='price-field'>
-                            <View className='pf-left'>
-                                <Text className='pf-name'>花费预算</Text>
-                                <Text className='pf-hint'>商品/服务本身费用</Text>
-                            </View>
-                            <View className='pf-input-wrap'>
-                                <Text className='pf-prefix'>S$</Text>
-                                <Input
-                                    className='pf-input'
-                                    type='digit'
-                                    placeholder='0.00'
-                                    placeholderClass='fc-placeholder'
-                                    value={budget}
-                                    onInput={(e) => setBudget(e.detail.value)}
-                                />
-                            </View>
+                    {/* Price Card */}
+                    <View className='form-card'>
+                        <Text className='fc-label'>💰 费用明细</Text>
+                        <View className='price-line'>
+                            <Text className='pl-name'>配送基础费</Text>
+                            <Text className='pl-value'>S${deliveryBase.toFixed(2)}</Text>
                         </View>
-
-                        <View className='price-field'>
-                            <View className='pf-left'>
-                                <Text className='pf-name'>跑腿费</Text>
-                                <Text className='pf-hint'>支付给跑腿员的费用</Text>
-                            </View>
-                            <View className='pf-input-wrap'>
-                                <Text className='pf-prefix'>S$</Text>
-                                <Input
-                                    className='pf-input'
-                                    type='digit'
-                                    placeholder='0.00'
-                                    placeholderClass='fc-placeholder'
-                                    value={deliveryFee}
-                                    onInput={(e) => setDeliveryFee(e.detail.value)}
-                                />
-                            </View>
+                        <View className='price-line'>
+                            <Text className='pl-name'>距离费（约2.3km）</Text>
+                            <Text className='pl-value'>S${deliveryDist.toFixed(2)}</Text>
                         </View>
-
-                        <View className='fee-auto'>
-                            <Text className='fee-auto-label'>🏢 平台服务费（3.3%，最低S$2）</Text>
-                            <Text className='fee-auto-value'>S${platformFee.toFixed(2)}</Text>
+                        <View className='price-line'>
+                            <Text className='pl-name'>平台服务费（3.3%，最低S$2）</Text>
+                            <Text className='pl-value'>S${deliveryPlatformFee.toFixed(2)}</Text>
                         </View>
 
                         {/* Tip */}
@@ -302,8 +304,8 @@ export default function Errand() {
                                 {TIP_OPTIONS.map(t => (
                                     <View
                                         key={t}
-                                        className={`tip-chip ${tip === t ? 'tip-active' : ''}`}
-                                        onClick={() => setTip(t)}
+                                        className={`tip-chip ${deliveryTip === t ? 'tip-active' : ''}`}
+                                        onClick={() => setDeliveryTip(t)}
                                     >
                                         <Text className='tip-text'>{t === 0 ? '不加' : `S$${t}`}</Text>
                                     </View>
@@ -312,67 +314,31 @@ export default function Errand() {
                         </View>
 
                         <View className='price-divider' />
-
-                        {/* Total */}
                         <View className='total-row'>
                             <Text className='total-label'>合计</Text>
-                            <Text className='total-value'>S${total.toFixed(2)}</Text>
-                        </View>
-                        <View className='total-breakdown'>
-                            <Text className='tb-text'>
-                                预算 ${budgetNum.toFixed(2)} + 跑腿费 ${deliveryFeeNum.toFixed(2)} + 服务费 ${platformFee.toFixed(2)}{tip > 0 ? ` + 小费 $${tip.toFixed(2)}` : ''}
-                            </Text>
+                            <Text className='total-value'>S${deliveryTotal.toFixed(2)}</Text>
                         </View>
                     </View>
 
                     {/* Submit */}
-                    <View className='submit-btn' onClick={handleSubmitOrder}>
-                        <Text className='submit-text'>确认下单 · S${total.toFixed(2)}</Text>
+                    <View className='submit-btn' onClick={handleDeliveryConfirm}>
+                        <Text className='submit-text'>确认下单 · S${deliveryTotal.toFixed(2)}</Text>
                     </View>
-
-                    {/* Tracker */}
-                    {showTracker && (
-                        <View className='tracker-card'>
-                            <Text className='tracker-title'>📦 实时状态追踪</Text>
-                            {[
-                                { name: '订单已确认', desc: `${getNow()} · 已冻结 S$${total.toFixed(2)}` },
-                                { name: '跑腿员已接单', desc: '小明 ⭐4.9 · 距你 800m' },
-                                { name: '执行中', desc: '跑腿员正在处理你的需求' },
-                                { name: '已完成', desc: '实际消费后多退少不补' },
-                            ].map((step, i) => {
-                                const status = i < trackerStep ? 'done' : i === trackerStep ? 'active' : 'pending'
-                                return (
-                                    <View className={`step step-${status}`} key={i}>
-                                        <View className={`step-dot ${status}`}>
-                                            <Text>{status === 'done' ? '✓' : status === 'active' ? '●' : '○'}</Text>
-                                        </View>
-                                        <View className='step-content'>
-                                            <Text className='step-name'>{step.name}</Text>
-                                            <Text className='step-desc'>{step.desc}</Text>
-                                        </View>
-                                    </View>
-                                )
-                            })}
-                        </View>
-                    )}
 
                     <View style={{ height: '80px' }} />
                 </ScrollView>
             )}
 
-            {/* ── Chat Mode ── */}
-            {mode === 'chat' && (
+            {/* ═══ Tab 1 & 2: AI Chat ═══ */}
+            {(activeTab === 1 || activeTab === 2) && (
                 <View className='chat-pane'>
                     <View className='agent-strip'>
                         <View className='agent-avatar'>
                             <Text className='agent-avatar-text'>12</Text>
                         </View>
                         <View className='agent-info'>
-                            <Text className='agent-name'>12Tree 代办助手</Text>
-                            <Text className='agent-status'>● 在线 · AI帮你安排一切</Text>
-                        </View>
-                        <View className='agent-badge' onClick={() => setMode('form')}>
-                            <Text className='agent-badge-text'>📝 表单</Text>
+                            <Text className='agent-name'>{config.name}</Text>
+                            <Text className='agent-status'>● 在线 · AI帮你安排</Text>
                         </View>
                     </View>
 
@@ -412,7 +378,7 @@ export default function Errand() {
                     <View className='chat-input-bar'>
                         <Input
                             className='chat-input'
-                            placeholder='描述你的需求…'
+                            placeholder={config.placeholder}
                             placeholderClass='fc-placeholder'
                             value={chatInput}
                             onInput={(e) => setChatInput(e.detail.value)}

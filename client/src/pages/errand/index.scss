@@ -28,7 +28,7 @@ $bg: #F8F6F3;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px 14px;
+    padding: 0 16px 10px;
 }
 
 .back-btn {
@@ -53,69 +53,124 @@ $bg: #F8F6F3;
     color: $t0;
 }
 
-.mode-toggle {
-    background: rgba(107, 47, 224, 0.08);
-    border-radius: 16px;
-    padding: 6px 14px;
+// ── Tab Bar ──
+.tab-bar {
+    display: flex;
+    padding: 0 20px;
 }
 
-.mode-toggle-text {
-    font-size: 20px;
+.tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0 12px;
+    position: relative;
+}
+
+.tab-text {
+    font-size: 22px;
     font-weight: 600;
-    color: $v2;
+    color: $t3;
+    transition: color 0.2s;
 }
 
-// ── Form Body ──
-.form-body {
+.tab-text-active {
+    color: $v2;
+    font-weight: 700;
+}
+
+.tab-indicator {
+    position: absolute;
+    bottom: 0;
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background: $v2;
+}
+
+// ── Tab Body ──
+.tab-body {
     flex: 1;
     padding: 12px 16px;
 }
 
-// ── Quick Types ──
-.quick-types {
-    display: flex;
-    gap: 10px;
+// ── Map ──
+.map-area {
+    height: 220px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
     margin-bottom: 12px;
-    overflow-x: auto;
-    padding-bottom: 4px;
 }
 
-.quick-type-card {
-    min-width: 100px;
-    flex-shrink: 0;
-    background: #fff;
-    border-radius: 16px;
-    padding: 14px 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    transition: transform 0.2s;
+.map-bg {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #E8F4FD, #D4E8F7, #C4DAF0);
+    position: absolute;
+    inset: 0;
+}
 
-    &:active {
-        transform: scale(0.96);
+.map-road {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.7);
+
+    &.h {
+        left: 0;
+        right: 0;
+        height: 3px;
+    }
+
+    &.v {
+        top: 0;
+        bottom: 0;
+        width: 3px;
     }
 }
 
-.qt-icon {
-    font-size: 32px;
+.map-route {
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    width: 50%;
+    height: 40%;
+    border: 3px dashed rgba(107, 47, 224, 0.4);
+    border-radius: 20px;
 }
 
-.qt-label {
-    font-size: 20px;
-    font-weight: 700;
-    color: $t0;
+.map-pin {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    border-radius: 50% 50% 50% 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-45deg);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+    &.pin-a {
+        top: 25%;
+        left: 22%;
+        background: $v2;
+    }
+
+    &.pin-b {
+        bottom: 20%;
+        right: 22%;
+        background: #F97316;
+    }
 }
 
-.qt-desc {
-    font-size: 15px;
-    color: $t3;
-    text-align: center;
-    white-space: nowrap;
+.pin-label {
+    transform: rotate(45deg);
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
 }
 
-// ── Form Cards ──
+// ── Form Card ──
 .form-card {
     background: #fff;
     border-radius: 20px;
@@ -132,18 +187,6 @@ $bg: #F8F6F3;
     margin-bottom: 14px;
 }
 
-.fc-textarea {
-    width: 100%;
-    min-height: 100px;
-    font-size: 22px;
-    color: $t0;
-    border: 1.5px solid rgba(0, 0, 0, 0.06);
-    border-radius: 14px;
-    padding: 14px;
-    box-sizing: border-box;
-    line-height: 1.5;
-}
-
 .fc-placeholder {
     color: $t3;
 }
@@ -152,8 +195,8 @@ $bg: #F8F6F3;
 .addr-row {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 8px 0;
+    gap: 14px;
+    padding: 10px 0;
 }
 
 .addr-dot {
@@ -171,84 +214,87 @@ $bg: #F8F6F3;
     background: #F97316;
 }
 
-.addr-input {
+.addr-content {
     flex: 1;
+}
+
+.addr-label {
+    font-size: 16px;
+    color: $t3;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.addr-input {
     font-size: 22px;
     color: $t0;
-    padding: 8px 0;
+    padding: 6px 0;
+    width: 100%;
 }
 
 .addr-divider {
     height: 1px;
     background: rgba(0, 0, 0, 0.04);
-    margin-left: 28px;
+    margin-left: 30px;
 }
 
-// ── Pricing ──
-.price-field {
+// ── Saved Addresses ──
+.saved-row {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    gap: 10px;
+    margin-bottom: 12px;
 }
 
-.pf-left {
+.saved-chip {
+    flex: 1;
+    background: #fff;
+    border-radius: 16px;
+    padding: 10px 8px;
     display: flex;
     flex-direction: column;
-    gap: 2px;
-}
-
-.pf-name {
-    font-size: 22px;
-    font-weight: 600;
-    color: $t0;
-}
-
-.pf-hint {
-    font-size: 16px;
-    color: $t3;
-}
-
-.pf-input-wrap {
-    display: flex;
     align-items: center;
     gap: 4px;
-    background: rgba(0, 0, 0, 0.03);
-    border-radius: 12px;
-    padding: 8px 14px;
-    min-width: 140px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+    &:active {
+        transform: scale(0.96);
+    }
 }
 
-.pf-prefix {
+.saved-icon {
     font-size: 22px;
-    font-weight: 700;
-    color: $red;
 }
 
-.pf-input {
-    font-size: 24px;
-    font-weight: 700;
+.saved-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: $t2;
+}
+
+// ── Remark ──
+.remark-input {
+    font-size: 22px;
     color: $t0;
-    width: 80px;
-    text-align: right;
+    padding: 8px 0;
+    width: 100%;
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.06);
 }
 
-// ── Auto Fee ──
-.fee-auto {
+// ── Price Lines ──
+.price-line {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    padding: 14px 0;
+    align-items: center;
+    padding: 10px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
-.fee-auto-label {
+.pl-name {
     font-size: 20px;
     color: $t2;
 }
 
-.fee-auto-value {
+.pl-value {
     font-size: 22px;
     font-weight: 600;
     color: $t0;
@@ -329,15 +375,6 @@ $bg: #F8F6F3;
     color: $red;
 }
 
-.total-breakdown {
-    margin-top: 4px;
-}
-
-.tb-text {
-    font-size: 16px;
-    color: $t3;
-}
-
 // ── Submit ──
 .submit-btn {
     background: linear-gradient(135deg, $v2, $v3);
@@ -346,7 +383,6 @@ $bg: #F8F6F3;
     text-align: center;
     margin-top: 12px;
     box-shadow: 0 4px 20px rgba(107, 47, 224, 0.3);
-    transition: transform 0.2s;
 
     &:active {
         transform: scale(0.98);
@@ -357,82 +393,6 @@ $bg: #F8F6F3;
     font-size: 26px;
     font-weight: 800;
     color: #fff;
-}
-
-// ── Tracker ──
-.tracker-card {
-    background: #fff;
-    border-radius: 20px;
-    padding: 20px;
-    margin-top: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.tracker-title {
-    font-size: 22px;
-    font-weight: 700;
-    color: $t0;
-    display: block;
-    margin-bottom: 16px;
-}
-
-.step {
-    display: flex;
-    gap: 14px;
-    padding-bottom: 20px;
-    position: relative;
-
-    &:not(:last-child)::after {
-        content: '';
-        position: absolute;
-        left: 15px;
-        top: 36px;
-        bottom: 0;
-        width: 2px;
-        background: rgba(0, 0, 0, 0.06);
-    }
-}
-
-.step-done::after {
-    background: $v2 !important;
-}
-
-.step-dot {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 16px;
-
-    &.done {
-        background: $v2;
-        color: #fff;
-    }
-
-    &.active {
-        background: rgba(107, 47, 224, 0.12);
-        color: $v2;
-    }
-
-    &.pending {
-        background: rgba(0, 0, 0, 0.04);
-        color: $t3;
-    }
-}
-
-.step-name {
-    font-size: 22px;
-    font-weight: 600;
-    color: $t0;
-    display: block;
-}
-
-.step-desc {
-    font-size: 18px;
-    color: $t3;
 }
 
 // ── Chat Mode ──
@@ -482,18 +442,6 @@ $bg: #F8F6F3;
 .agent-status {
     font-size: 17px;
     color: #22C55E;
-}
-
-.agent-badge {
-    background: rgba(107, 47, 224, 0.08);
-    border-radius: 12px;
-    padding: 6px 12px;
-}
-
-.agent-badge-text {
-    font-size: 18px;
-    font-weight: 600;
-    color: $v2;
 }
 
 .chat-scroll {
@@ -604,7 +552,6 @@ $bg: #F8F6F3;
     }
 }
 
-// ── Chat Input ──
 .chat-input-bar {
     display: flex;
     align-items: center;
