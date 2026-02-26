@@ -4,11 +4,18 @@ import { useState, useRef, useCallback } from 'react'
 import * as api from '../../services/api'
 import './index.scss'
 
+interface OrderPreview {
+    service: string
+    from: string
+    to: string
+}
+
 interface ChatMsg {
     role: 'user' | 'ai'
     content: string
     time: string
     chips?: string[]
+    orderPreview?: OrderPreview
 }
 
 function getNow() {
@@ -51,6 +58,16 @@ export default function Errand() {
     const conversationIdRef = useRef<string | null>(null)
     const [messages, setMessages] = useState<ChatMsg[]>([])
     const [chatType, setChatType] = useState<'errand' | 'onsite'>('errand')
+
+    // ── Order Preview State (editable in chat) ──
+    const [prevBudget, setPrevBudget] = useState('')
+    const [prevFee, setPrevFee] = useState('')
+    const [prevTip, setPrevTip] = useState(0)
+    const prevBudgetNum = parseFloat(prevBudget) || 0
+    const prevFeeNum = parseFloat(prevFee) || 0
+    const prevSubtotal = prevBudgetNum + prevFeeNum
+    const prevPlatformFee = Math.max(prevSubtotal * PLATFORM_FEE_RATE, MIN_PLATFORM_FEE)
+    const prevTotal = prevSubtotal + prevPlatformFee + prevTip
 
     // Delivery pricing (配送费 will come from backend API)
     const deliveryFee = 8.00
@@ -130,7 +147,25 @@ export default function Errand() {
                 })
             },
             onSlots: () => { },
-            onSlotsComplete: () => { },
+            onSlotsComplete: (data) => {
+                const sd = (data as any).slotData || data
+                const service = sd.item || sd.description || (data as any).serviceType || '代办服务'
+                const from = sd.from || sd.pickupAddress || sd.address || ''
+                const to = sd.to || sd.deliveryAddress || ''
+                const estBudget = sd.estimatedPrice || sd.price || sd.budget || ''
+                const estFee = sd.deliveryFee || sd.fee || ''
+                // Pre-fill preview state
+                if (estBudget) setPrevBudget(String(parseFloat(estBudget) || ''))
+                if (estFee) setPrevFee(String(parseFloat(estFee) || ''))
+                setPrevTip(0)
+                // Add preview card to chat
+                setMessages(prev => [...prev, {
+                    role: 'ai',
+                    content: '',
+                    time: getNow(),
+                    orderPreview: { service, from, to },
+                }])
+            },
             onDone: () => setIsStreaming(false),
             onError: () => {
                 setMessages(prev => {
@@ -346,14 +381,96 @@ export default function Errand() {
                                         </View>
                                     )}
                                     <View className='msg-group'>
-                                        <View className='msg-bubble'>{msg.content}</View>
-                                        {msg.chips && (
-                                            <View className='msg-chips'>
-                                                {msg.chips.map((chip, j) => (
-                                                    <Text className='chip-btn' key={j} onClick={() => handleSendMessage(chip)}>
-                                                        {chip}
-                                                    </Text>
-                                                ))}
+                                        {msg.orderPreview ? (
+                                            <View className='order-preview'>
+                                                <View className='op-header'>
+                                                    <Text className='op-icon'>📋</Text>
+                                                    <Text className='op-title'>订单预览</Text>
+                                                </View>
+                                                <View className='op-info'>
+                                                    <View className='op-row'>
+                                                        <Text className='op-label'>服务</Text>
+                                                        <Text className='op-value'>{msg.orderPreview.service}</Text>
+                                                    </View>
+                                                    {msg.orderPreview.from && (
+                                                        <View className='op-row'>
+                                                            <Text className='op-label'>取件/地址</Text>
+                                                            <Text className='op-value'>{msg.orderPreview.from}</Text>
+                                                        </View>
+                                                    )}
+                                                    {msg.orderPreview.to && (
+                                                        <View className='op-row'>
+                                                            <Text className='op-label'>送达</Text>
+                                                            <Text className='op-value'>{msg.orderPreview.to}</Text>
+                                                        </View>
+                                                    )}
+                                                </View>
+                                                <View className='op-divider' />
+                                                <View className='op-field'>
+                                                    <Text className='op-field-label'>花费预算</Text>
+                                                    <View className='op-input-wrap'>
+                                                        <Text className='op-prefix'>S$</Text>
+                                                        <Input className='op-input' type='digit' placeholder='0.00' placeholderClass='fc-placeholder' value={prevBudget} onInput={(e) => setPrevBudget(e.detail.value)} />
+                                                    </View>
+                                                </View>
+                                                <View className='op-field'>
+                                                    <Text className='op-field-label'>{chatType === 'errand' ? '跑腿费' : '上门费'}</Text>
+                                                    <View className='op-input-wrap'>
+                                                        <Text className='op-prefix'>S$</Text>
+                                                        <Input className='op-input' type='digit' placeholder='0.00' placeholderClass='fc-placeholder' value={prevFee} onInput={(e) => setPrevFee(e.detail.value)} />
+                                                    </View>
+                                                </View>
+                                                <View className='op-auto-fee'>
+                                                    <Text className='op-auto-label'>平台服务费（3.3%，最低S$2）</Text>
+                                                    <Text className='op-auto-value'>S${prevPlatformFee.toFixed(2)}</Text>
+                                                </View>
+                                                <View className='op-tip-section'>
+                                                    <Text className='op-tip-label'>🎁 小费（可选）</Text>
+                                                    <View className='op-tip-options'>
+                                                        {TIP_OPTIONS.map(t => (
+                                                            <View key={t} className={`op-tip-chip ${prevTip === t ? 'op-tip-active' : ''}`} onClick={() => setPrevTip(t)}>
+                                                                <Text className='op-tip-text'>{t === 0 ? '不加' : `S$${t}`}</Text>
+                                                            </View>
+                                                        ))}
+                                                    </View>
+                                                    <Text className='op-tip-hint'>小费100%给到骑手，超时则返回钱包</Text>
+                                                </View>
+                                                <View className='op-divider' />
+                                                <View className='op-total-row'>
+                                                    <Text className='op-total-label'>合计</Text>
+                                                    <Text className='op-total-value'>S${prevTotal.toFixed(2)}</Text>
+                                                </View>
+                                                <View className='op-pay-btn' onClick={() => {
+                                                    if (prevBudgetNum <= 0 && prevFeeNum <= 0) {
+                                                        Taro.showToast({ title: '请填写预算或费用', icon: 'none' }); return
+                                                    }
+                                                    Taro.showModal({
+                                                        title: '确认支付',
+                                                        content: `总计 S$${prevTotal.toFixed(2)}`,
+                                                        confirmText: '确认支付',
+                                                        confirmColor: '#6B2FE0',
+                                                        success: (res) => {
+                                                            if (res.confirm) {
+                                                                Taro.showToast({ title: '下单成功！', icon: 'success' })
+                                                            }
+                                                        },
+                                                    })
+                                                }}>
+                                                    <Text className='op-pay-text'>确认支付 · S${prevTotal.toFixed(2)}</Text>
+                                                </View>
+                                            </View>
+                                        ) : (
+                                            <View>
+                                                <View className='msg-bubble'>{msg.content}</View>
+                                                {msg.chips && (
+                                                    <View className='msg-chips'>
+                                                        {msg.chips.map((chip, j) => (
+                                                            <Text className='chip-btn' key={j} onClick={() => handleSendMessage(chip)}>
+                                                                {chip}
+                                                            </Text>
+                                                        ))}
+                                                    </View>
+                                                )}
                                             </View>
                                         )}
                                     </View>

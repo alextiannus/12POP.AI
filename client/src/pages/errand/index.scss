@@ -589,3 +589,208 @@ $bg: #F8F6F3;
     font-weight: 700;
     color: #fff;
 }
+
+// ── Order Preview Card ──
+.order-preview {
+    background: #fff;
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 2px 12px rgba(107, 47, 224, 0.1);
+    border: 1.5px solid rgba(107, 47, 224, 0.12);
+    min-width: 280px;
+    max-width: 320px;
+}
+
+.op-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.op-icon {
+    font-size: 22px;
+}
+
+.op-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: $v2;
+}
+
+.op-info {
+    margin-bottom: 4px;
+}
+
+.op-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.op-label {
+    font-size: 18px;
+    color: $t3;
+    flex-shrink: 0;
+}
+
+.op-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: $t0;
+    text-align: right;
+    flex: 1;
+    margin-left: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.op-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.06);
+    margin: 10px 0;
+}
+
+.op-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.op-field-label {
+    font-size: 20px;
+    font-weight: 600;
+    color: $t0;
+}
+
+.op-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 10px;
+    padding: 6px 12px;
+    min-width: 120px;
+}
+
+.op-prefix {
+    font-size: 20px;
+    font-weight: 700;
+    color: $red;
+}
+
+.op-input {
+    font-size: 22px;
+    font-weight: 700;
+    color: $t0;
+    width: 70px;
+    text-align: right;
+}
+
+.op-auto-fee {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.op-auto-label {
+    font-size: 17px;
+    color: $t3;
+}
+
+.op-auto-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: $t0;
+}
+
+.op-tip-section {
+    padding: 8px 0;
+}
+
+.op-tip-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.op-tip-options {
+    display: flex;
+    gap: 6px;
+}
+
+.op-tip-chip {
+    flex: 1;
+    padding: 6px;
+    border-radius: 10px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1.5px solid transparent;
+    transition: all 0.2s;
+}
+
+.op-tip-active {
+    background: rgba(107, 47, 224, 0.08);
+    border-color: $v2;
+
+    .op-tip-text {
+        color: $v2;
+        font-weight: 700;
+    }
+}
+
+.op-tip-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: $t2;
+}
+
+.op-tip-hint {
+    font-size: 14px;
+    color: $t3;
+    display: block;
+    margin-top: 6px;
+}
+
+.op-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.op-total-label {
+    font-size: 22px;
+    font-weight: 700;
+    color: $t0;
+}
+
+.op-total-value {
+    font-size: 28px;
+    font-weight: 900;
+    color: $red;
+}
+
+.op-pay-btn {
+    background: linear-gradient(135deg, $v2, $v3);
+    border-radius: 20px;
+    padding: 14px;
+    text-align: center;
+    margin-top: 12px;
+    box-shadow: 0 3px 16px rgba(107, 47, 224, 0.3);
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+.op-pay-text {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+}
