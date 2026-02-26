@@ -56,6 +56,7 @@ export default function Errand() {
     const [chatInput, setChatInput] = useState('')
     const [isStreaming, setIsStreaming] = useState(false)
     const conversationIdRef = useRef<string | null>(null)
+    const userMsgCountRef = useRef(0)
     const [messages, setMessages] = useState<ChatMsg[]>([])
     const [chatType, setChatType] = useState<'errand' | 'onsite'>('errand')
 
@@ -78,6 +79,7 @@ export default function Errand() {
     const initChat = useCallback((type: 'errand' | 'onsite') => {
         setChatType(type)
         conversationIdRef.current = null
+        userMsgCountRef.current = 0
         const config = AI_CONFIG[type]
         setMessages([{
             role: 'ai',
@@ -132,6 +134,8 @@ export default function Errand() {
         if (!msg.trim() || isStreaming) return
         setMessages(prev => [...prev, { role: 'user', content: msg, time: getNow() }])
         if (!text) setChatInput('')
+        userMsgCountRef.current += 1
+        const msgCount = userMsgCountRef.current
         setIsStreaming(true)
 
         const convId = await ensureConversation()
@@ -168,16 +172,54 @@ export default function Errand() {
             },
             onDone: () => setIsStreaming(false),
             onError: () => {
+                // Demo: show order preview on 3rd message
+                if (msgCount >= 3) {
+                    setMessages(prev => {
+                        const updated = [...prev]
+                        const lastAi = updated[updated.length - 1]
+                        if (lastAi && lastAi.role === 'ai' && !lastAi.content) {
+                            lastAi.content = '好的，我已经整理好你的需求，请确认订单信息：'
+                        }
+                        return [...updated]
+                    })
+                    // Collect user messages to build preview
+                    const userMsgs = messages.filter(m => m.role === 'user').map(m => m.content)
+                    const service = userMsgs[0] || (chatType === 'errand' ? '代买服务' : '上门服务')
+                    const from = userMsgs[1] || ''
+                    const to = userMsgs[2] || ''
+                    setPrevBudget(chatType === 'errand' ? '15' : '80')
+                    setPrevFee(chatType === 'errand' ? '5' : '10')
+                    setPrevTip(0)
+                    setTimeout(() => {
+                        setMessages(prev => [...prev, {
+                            role: 'ai',
+                            content: '',
+                            time: getNow(),
+                            orderPreview: { service, from, to },
+                        }])
+                    }, 300)
+                    setIsStreaming(false)
+                    return
+                }
+
+                // Normal mock reply for messages 1-2
+                const mockReplies = chatType === 'errand'
+                    ? [
+                        { text: '收到！帮你代买 🛒\n\n从哪家店买呢？', chips: ['NTUC', '小贩中心', '随便你选'] },
+                        { text: '好的！送到哪里呢？', chips: ['我家地址', '公司地址', 'Clementi Block 123'] },
+                    ]
+                    : [
+                        { text: '收到！帮你安排 🏠\n\n服务地址是哪里？', chips: ['我家地址', 'Jurong West', 'Clementi'] },
+                        { text: '好的！你的预算大概多少？', chips: ['预算S$50', '预算S$80', '预算S$120'] },
+                    ]
+                const reply = mockReplies[Math.min(msgCount - 1, mockReplies.length - 1)]
+
                 setMessages(prev => {
                     const updated = [...prev]
                     const lastAi = updated[updated.length - 1]
                     if (lastAi && lastAi.role === 'ai' && !lastAi.content) {
-                        lastAi.content = chatType === 'errand'
-                            ? `收到！帮你安排 🛒\n\n请告诉我：\n1. 具体要买什么？\n2. 从哪家店？\n3. 送到哪个地址？`
-                            : `好的！帮你安排上门服务 🏠\n\n请告诉我：\n1. 需要什么服务？\n2. 服务地址？\n3. 预期预算？`
-                        lastAi.chips = chatType === 'errand'
-                            ? ['随便你买', '送到我家', '预算S$20']
-                            : ['3房清洁', '我家地址是...', '预算S$80']
+                        lastAi.content = reply.text
+                        lastAi.chips = reply.chips
                     }
                     return [...updated]
                 })
