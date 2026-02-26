@@ -1,0 +1,334 @@
+$v2: #6B2FE0;
+$v3: #9B62FF;
+$red: #E03020;
+$t0: #180E04;
+$t2: #8A7060;
+$t3: #B5A090;
+$bg: #F8F6F3;
+
+.detail-page {
+    min-height: 100vh;
+    background: $bg;
+    display: flex;
+    flex-direction: column;
+}
+
+// ── Header ──
+.detail-header {
+    background: #fff;
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.status-bar {
+    height: 88px;
+}
+
+.detail-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px 14px;
+}
+
+.back-btn,
+.share-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: $bg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-arrow {
+    font-size: 28px;
+    font-weight: 700;
+    color: $t0;
+}
+
+.share-icon {
+    font-size: 24px;
+    font-weight: 700;
+    color: $t0;
+}
+
+.nav-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: $t0;
+}
+
+.detail-loading {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 200px;
+    font-size: 24px;
+    color: $t3;
+}
+
+// ── Body ──
+.detail-body {
+    flex: 1;
+    margin-top: 148px;
+}
+
+// ── Gallery ──
+.detail-gallery {
+    height: 420px;
+    background: linear-gradient(135deg, #f3f0ff, #e8e0ff, #d4c8ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.gallery-emoji {
+    font-size: 120px;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.12));
+}
+
+.gallery-badge {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: $red;
+    border-radius: 12px;
+    padding: 6px 14px;
+}
+
+.gallery-badge-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+}
+
+// ── Price ──
+.price-section {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 8px;
+}
+
+.price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.detail-price {
+    font-size: 40px;
+    font-weight: 900;
+    color: $red;
+}
+
+.detail-orig {
+    font-size: 22px;
+    color: $t3;
+    text-decoration: line-through;
+}
+
+.price-tags {
+    display: flex;
+    gap: 8px;
+}
+
+.p-tag {
+    padding: 4px 12px;
+    border-radius: 8px;
+}
+
+.p-tag-red {
+    background: rgba(224, 48, 32, 0.1);
+
+    .p-tag-text {
+        color: $red;
+    }
+}
+
+.p-tag-blue {
+    background: rgba(107, 47, 224, 0.1);
+
+    .p-tag-text {
+        color: $v2;
+    }
+}
+
+.p-tag-text {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+// ── Info ──
+.info-card {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 8px;
+}
+
+.detail-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.detail-desc {
+    font-size: 22px;
+    color: $t2;
+    line-height: 1.6;
+    display: block;
+    margin-bottom: 14px;
+}
+
+.detail-meta-row {
+    display: flex;
+    gap: 20px;
+}
+
+.detail-meta {
+    font-size: 18px;
+    color: $t3;
+}
+
+// ── Seller Card ──
+.seller-card {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.seller-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.seller-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $v2, $v3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.seller-avatar-text {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.seller-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+}
+
+.seller-stat {
+    font-size: 18px;
+    color: $t3;
+}
+
+.seller-follow {
+    border: 2px solid $v2;
+    border-radius: 20px;
+    padding: 6px 20px;
+}
+
+.seller-follow-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: $v2;
+}
+
+// ── Safety ──
+.safety-card {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 8px;
+}
+
+.safety-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.safety-text {
+    font-size: 20px;
+    color: $t2;
+    line-height: 2;
+    display: block;
+}
+
+// ── Bottom Bar ──
+.detail-action-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 12px 20px 50px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+    z-index: 20;
+}
+
+.action-btns {
+    display: flex;
+    gap: 16px;
+}
+
+.action-icon-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.action-icon-emoji {
+    font-size: 28px;
+}
+
+.action-icon-label {
+    font-size: 16px;
+    color: $t2;
+}
+
+.contact-btn {
+    flex: 1;
+    background: linear-gradient(135deg, $v2, $v3);
+    border-radius: 28px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(107, 47, 224, 0.3);
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+.contact-btn-text {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+}

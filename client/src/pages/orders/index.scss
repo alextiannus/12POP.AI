@@ -1,0 +1,137 @@
+@use '../../styles/shared' as *;
+
+.orders-page {
+    @include sub-page;
+}
+
+.orders-header {
+    @include sub-header;
+}
+
+.order-filters {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.order-filter {
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.1);
+
+    &.active {
+        background: #fff;
+        color: $v2;
+    }
+}
+
+.orders-body {
+    flex: 1;
+    padding: 20px 28px;
+}
+
+.order-card {
+    @include card;
+    padding: 22px 26px;
+    margin-bottom: 16px;
+}
+
+.order-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.order-id {
+    font-size: 18px;
+    color: $t3;
+    font-weight: 600;
+    font-family: 'SF Mono', 'Menlo', monospace;
+}
+
+.order-status {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.order-main {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.order-icon-box {
+    width: 72px;
+    height: 72px;
+    border-radius: 22px;
+    background: $ibg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.order-icon {
+    font-size: 36px;
+}
+
+.order-info {
+    flex: 1;
+}
+
+.order-name {
+    font-size: 26px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+}
+
+.order-meta {
+    font-size: 20px;
+    color: $t3;
+    display: block;
+    margin-top: 4px;
+}
+
+.order-runner {
+    font-size: 20px;
+    color: $v2;
+    font-weight: 600;
+    display: block;
+    margin-top: 4px;
+}
+
+.order-amount {
+    font-size: 28px;
+    font-weight: 800;
+    color: $t0;
+}
+
+.order-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid $div;
+}
+
+.order-btn {
+    flex: 1;
+    text-align: center;
+    padding: 16px;
+    border-radius: 16px;
+    font-size: 24px;
+    font-weight: 700;
+    background: $v2;
+    color: #fff;
+
+    &.outline {
+        background: transparent;
+        color: $v2;
+        border: 2px solid rgba(107, 47, 224, 0.2);
+    }
+}

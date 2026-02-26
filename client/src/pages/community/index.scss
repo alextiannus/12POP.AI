@@ -1,0 +1,314 @@
+@use '../../styles/popcoin.scss' as *;
+$v2: #6B2FE0;
+$v3: #9B62FF;
+$t0: #180E04;
+$t2: #8A7060;
+$t3: #B5A090;
+$bg: #F8F6F3;
+
+.community {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: $bg;
+}
+
+// ── Gradient Header ──
+.comm-header {
+    background: linear-gradient(155deg, #350E8C 0%, $v2 55%, #7C5CE7 100%);
+    padding: 0 24px 28px;
+}
+
+.status-bar {
+    height: 88px;
+}
+
+.header-title {
+    font-size: 34px;
+    font-weight: 800;
+    color: #fff;
+    display: block;
+}
+
+// ── POPCoin Hero Card ──
+.popcoin-hero {
+    background: linear-gradient(135deg, #1E1B4B, #312E81);
+    border-radius: 22px;
+    padding: 22px;
+    margin: -16px 20px 0;
+    box-shadow: 0 8px 24px rgba(30, 27, 75, 0.3);
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: rgba(139, 92, 246, 0.15);
+    }
+}
+
+.popcoin-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+
+.popcoin-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.popcoin-badge-icon {
+    font-size: 28px;
+}
+
+.popcoin-info {
+    flex: 1;
+}
+
+.popcoin-amount {
+    font-size: 30px;
+    font-weight: 800;
+    color: #fff;
+    display: block;
+}
+
+.popcoin-desc {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.5;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+// ── Sections ──
+.comm-body {
+    flex: 1;
+}
+
+.section {
+    padding: 24px 20px 0;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    margin-bottom: 16px;
+}
+
+// ── Group Card ──
+.group-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.group-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.group-icon-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #FFEDD5, #FED7AA);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.15);
+}
+
+.group-icon {
+    font-size: 32px;
+}
+
+.group-info {
+    flex: 1;
+}
+
+.group-name-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.group-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: $t0;
+}
+
+.group-tag {
+    padding: 3px 12px;
+    border-radius: 8px;
+}
+
+.group-tag-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.group-desc {
+    font-size: 20px;
+    color: $t2;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.group-members {
+    font-size: 18px;
+    color: $t3;
+    display: block;
+}
+
+.join-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(107, 47, 224, 0.04);
+    border-radius: 14px;
+    padding: 12px 16px;
+}
+
+.join-platform {
+    font-size: 22px;
+    font-weight: 600;
+    color: $t2;
+}
+
+.join-btn {
+    background: $v2;
+    border-radius: 10px;
+    padding: 8px 18px;
+    box-shadow: 0 3px 10px rgba(107, 47, 224, 0.25);
+}
+
+.join-btn-text {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+}
+
+// ── Gamified Quest Section ──
+.section-header-game {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.section-title-game {
+    font-size: 28px;
+    font-weight: 700;
+    color: $t0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.level-badge {
+    background: linear-gradient(135deg, #F59E0B, #EF4444);
+    border-radius: 12px;
+    padding: 5px 14px;
+    box-shadow: 0 3px 10px rgba(245, 158, 11, 0.3);
+}
+
+.level-text {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.quest-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease;
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+.quest-icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.quest-icon {
+    font-size: 30px;
+}
+
+.quest-info {
+    flex: 1;
+}
+
+.quest-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.quest-desc {
+    font-size: 17px;
+    color: $t3;
+}
+
+.quest-reward-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.quest-xp {
+    border-radius: 12px;
+    padding: 6px 14px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.quest-xp-text {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.quest-unit {
+    font-size: 14px;
+    font-weight: 600;
+    color: $t3;
+    text-transform: uppercase;
+}

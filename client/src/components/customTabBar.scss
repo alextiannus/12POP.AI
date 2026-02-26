@@ -1,0 +1,111 @@
+$v2: #6B2FE0; // Purple active color
+
+.custom-tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 104px; // Increased height to prevent being squished
+    padding-bottom: env(safe-area-inset-bottom, 16px); // Much better bottom padding
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center; // Centered
+    justify-content: space-around;
+    z-index: 999;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+    border-top: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.tab-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+    padding-bottom: 4px; // Adjusted padding
+}
+
+.tab-icon-wrap {
+    position: relative;
+    width: 44px; // Larger touch area
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.tab-icon {
+    font-size: 32px; // Much larger icons!
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.2s ease;
+}
+
+.tab-item.active .tab-icon {
+    filter: none;
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.active-dot {
+    position: absolute;
+    bottom: -6px;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: $v2;
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.tab-item.active .active-dot {
+    opacity: 1;
+    bottom: 0px;
+}
+
+.tab-label {
+    font-size: 20px;
+    color: #9CA3AF;
+    transition: all 0.2s ease;
+}
+
+.tab-item.active .tab-label {
+    color: $v2;
+    font-weight: 800;
+}
+
+// Center floating button
+.center-tab {
+    position: relative;
+    z-index: 2;
+    margin-top: -36px; // Pop out more
+}
+
+.center-btn-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.center-btn {
+    width: 64px; // Super large floating button
+    height: 64px;
+    border-radius: 26px;
+    background: $v2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 24px rgba(107, 47, 224, 0.35);
+    border: 3px solid #fff;
+}
+
+.center-icon {
+    font-size: 36px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}

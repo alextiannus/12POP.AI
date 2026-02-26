@@ -1,0 +1,148 @@
+@use '../../styles/shared' as *;
+
+.coupons-page {
+    @include sub-page;
+}
+
+.coupons-header {
+    @include sub-header;
+}
+
+.coupon-tabs {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.coupon-tab {
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.1);
+
+    &.active {
+        background: #fff;
+        color: $v2;
+    }
+}
+
+.coupons-body {
+    flex: 1;
+    padding: 20px 28px;
+}
+
+.empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 0;
+}
+
+.empty-icon {
+    font-size: 72px;
+    margin-bottom: 16px;
+}
+
+.empty-text {
+    font-size: 26px;
+    color: $t3;
+}
+
+.coupon-card {
+    display: flex;
+    border-radius: 22px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 6px rgba(60, 30, 10, 0.05), 0 8px 24px rgba(60, 30, 10, 0.07);
+
+    &.used,
+    &.expired {
+        opacity: 0.55;
+    }
+}
+
+.coupon-left {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 12px;
+    flex-shrink: 0;
+    position: relative;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        right: -10px;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        background: $bg;
+    }
+
+    &::before {
+        top: -10px;
+    }
+
+    &::after {
+        bottom: -10px;
+    }
+}
+
+.coupon-amount {
+    font-size: 36px;
+    font-weight: 900;
+    color: #fff;
+}
+
+.coupon-type {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 2px;
+}
+
+.coupon-right {
+    flex: 1;
+    padding: 22px 24px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.coupon-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: $t0;
+}
+
+.coupon-desc {
+    font-size: 20px;
+    color: $t2;
+}
+
+.coupon-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.coupon-expiry {
+    font-size: 18px;
+    color: $t3;
+}
+
+.coupon-use {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    background: $v2;
+    padding: 8px 20px;
+    border-radius: 12px;
+}

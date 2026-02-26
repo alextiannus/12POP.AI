@@ -1,0 +1,108 @@
+@use '../../styles/shared' as *;
+
+.address-page {
+    @include sub-page;
+}
+
+.address-header {
+    @include sub-header;
+}
+
+.address-body {
+    flex: 1;
+    padding: 20px 28px;
+}
+
+.addr-card {
+    @include card;
+    padding: 24px 26px;
+    margin-bottom: 16px;
+}
+
+.addr-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.addr-label-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.addr-icon {
+    font-size: 32px;
+}
+
+.addr-label {
+    font-size: 28px;
+    font-weight: 800;
+    color: $t0;
+}
+
+.addr-default {
+    font-size: 18px;
+    font-weight: 700;
+    color: $v2;
+    background: rgba(107, 47, 224, 0.08);
+    padding: 6px 16px;
+    border-radius: 10px;
+}
+
+.addr-name {
+    font-size: 24px;
+    font-weight: 600;
+    color: $t0;
+    display: block;
+}
+
+.addr-text {
+    font-size: 22px;
+    color: $t2;
+    display: block;
+    margin-top: 6px;
+    line-height: 1.5;
+}
+
+.addr-actions {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid $div;
+}
+
+.addr-action {
+    font-size: 22px;
+    font-weight: 600;
+    color: $v2;
+
+    &.delete {
+        color: $red;
+    }
+}
+
+.add-addr-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 36px;
+    border: 3px dashed rgba(107, 47, 224, 0.2);
+    border-radius: 24px;
+    margin-top: 8px;
+}
+
+.add-icon {
+    font-size: 36px;
+    color: $v2;
+    font-weight: 300;
+}
+
+.add-text {
+    font-size: 26px;
+    font-weight: 700;
+    color: $v2;
+}

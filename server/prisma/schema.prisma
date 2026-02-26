@@ -1,0 +1,105 @@
+// This is your Prisma schema file
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── Users ──
+model User {
+  id            String   @id @default(uuid())
+  externalId    String?  @unique // SSO ID from 唐人街外卖
+  name          String
+  phone         String?
+  email         String?
+  walletBalance Float    @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  conversations Conversation[]
+  tasks         Task[]
+  walletTxns    WalletTransaction[]
+  favorites     Favorite[]
+}
+
+// ── Conversations ──
+model Conversation {
+  id             String   @id @default(uuid())
+  userId         String
+  serviceType    String?  // shopping | errand | home_service | open_request
+  status         String   @default("active") // active | completed | abandoned
+  slotData       Json?    // accumulated slot filling data
+  slotComplete   Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  user     User      @relation(fields: [userId], references: [id])
+  messages Message[]
+  task     Task?
+}
+
+// ── Messages ──
+model Message {
+  id             String   @id @default(uuid())
+  conversationId String
+  role           String   // user | assistant | system
+  content        String
+  metadata       Json?    // for rich content (quote cards, tracker, etc.)
+  createdAt      DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+}
+
+// ── Tasks ──
+model Task {
+  id              String   @id @default(uuid())
+  conversationId  String   @unique
+  userId          String
+  serviceType     String   // shopping | errand | home_service | open_request
+  status          String   @default("unquoted")
+  // Status flow: unquoted → quoted → payment_pending → payment_success → dispatched → assigned → arrived → picked_up → completed | exception | cancelled
+  slotData        Json     // final structured slot data
+  quoteData       Json?    // pricing breakdown
+  totalAmount     Float?
+  frozenAmount    Float?
+  immediTaskId    String?  // Immedi AI task ID
+  immediStatus    String?  // latest Immedi webhook event
+  completedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user         User            @relation(fields: [userId], references: [id])
+  conversation Conversation    @relation(fields: [conversationId], references: [id])
+  walletTxns   WalletTransaction[]
+}
+
+// ── Wallet Transactions ──
+model WalletTransaction {
+  id          String   @id @default(uuid())
+  userId      String
+  taskId      String?
+  type        String   // freeze | deduct | refund | topup
+  amount      Float
+  description String?
+  createdAt   DateTime @default(now())
+
+  user User  @relation(fields: [userId], references: [id])
+  task Task? @relation(fields: [taskId], references: [id])
+}
+
+// ── Favorites ──
+model Favorite {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String   // address | shop
+  name      String
+  data      Json     // address details or shop details
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+}

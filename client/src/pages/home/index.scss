@@ -1,0 +1,463 @@
+$v1: #4A1F9C;
+$v2: #6B2FE0;
+$v3: #9B62FF;
+$red: #E03020;
+$t0: #180E04;
+$t2: #8A7060;
+$t3: #B5A090;
+$bg: #F8F6F3;
+
+.home {
+    min-height: 100vh;
+    background: $bg;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-body {
+    flex: 1;
+}
+
+// ── Header ──
+.header {
+    background: linear-gradient(155deg, #350E8C 0%, $v2 55%, $v3 100%);
+    padding: 10px 24px 20px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -100px;
+        right: -60px;
+        width: 360px;
+        height: 360px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.05);
+    }
+}
+
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+// ── Circular Logo Badge ──
+.logo-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #60A5FA, #3B82F6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.logo-12 {
+    font-size: 16px;
+    font-weight: 900;
+    color: #fff;
+}
+
+.logo-pop-text {
+    font-size: 9px;
+    font-weight: 800;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 1px;
+}
+
+.logo-bubble {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 1px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-name {
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -1px;
+}
+
+.logo-sub {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: -2px;
+}
+
+.bell-wrap {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bell {
+    font-size: 28px;
+    filter: brightness(1.5);
+}
+
+.greeting {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 12px;
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.greeting-bold {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+}
+
+// ── AI Bar ──
+.ai-bar {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+    padding: 8px 10px 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ai-gem {
+    font-size: 26px;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.5));
+}
+
+.ai-input {
+    flex: 1;
+    font-size: 22px;
+    color: #fff;
+    background: transparent;
+}
+
+.ai-placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.ai-send {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $v2, $v3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(107, 47, 224, 0.4);
+}
+
+// ── Section ──
+.section {
+    padding: 20px 16px 0;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: $t0;
+}
+
+.section-more {
+    font-size: 22px;
+    color: $v2;
+    font-weight: 600;
+}
+
+// ── Wide Service Card (Errand) ──
+.svc-wide {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    border-radius: 22px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 16px rgba(107, 47, 224, 0.08);
+    margin-bottom: 12px;
+    position: relative;
+}
+
+.svc-wide-icon-wrap {
+    flex-shrink: 0;
+}
+
+.svc-wide-icon-box {
+    width: 72px;
+    height: 72px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(255, 94, 91, 0.35);
+}
+
+.svc-wide-emoji {
+    font-size: 36px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.svc-wide-main {
+    flex: 1;
+}
+
+.svc-wide-name {
+    font-size: 28px;
+    font-weight: 800;
+    color: $t0;
+    display: block;
+}
+
+.svc-wide-sub {
+    font-size: 18px;
+    color: $t3;
+    display: block;
+    margin: 2px 0 8px;
+}
+
+.svc-wide-pills {
+    display: flex;
+    gap: 6px;
+}
+
+.pill {
+    font-size: 18px;
+    font-weight: 600;
+    color: $v2;
+    background: rgba(107, 47, 224, 0.08);
+    padding: 4px 12px;
+    border-radius: 8px;
+}
+
+.svc-wide-badge {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: $red;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+}
+
+// ── Service Row (Two Cards) ──
+.svc-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.svc-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
+}
+
+.svc-icon-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    transition: transform 0.2s ease;
+}
+
+.svc-card:active .svc-icon-circle {
+    transform: scale(1.08);
+}
+
+.teal-bg {
+    background: linear-gradient(135deg, #5EEAD4, #14B8A6);
+    box-shadow: 0 4px 14px rgba(20, 184, 166, 0.3);
+}
+
+.green-bg {
+    background: linear-gradient(135deg, #6EE7B7, #10B981);
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.svc-emoji {
+    font-size: 28px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.svc-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.svc-desc {
+    font-size: 18px;
+    color: $t3;
+    line-height: 1.4;
+}
+
+// ── Quick Chips ──
+.quick-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+}
+
+.quick-chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 14px 18px;
+    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
+    flex-shrink: 0;
+}
+
+.qc-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.orange-qc {
+    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
+    box-shadow: 0 3px 12px rgba(255, 94, 91, 0.3);
+}
+
+.purple-qc {
+    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+    box-shadow: 0 3px 12px rgba(124, 58, 237, 0.3);
+}
+
+.qc-emoji {
+    font-size: 22px;
+    filter: brightness(10);
+}
+
+.quick-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    white-space: nowrap;
+}
+
+.quick-sub {
+    font-size: 18px;
+    color: $t3;
+    display: block;
+    white-space: nowrap;
+}
+
+// ── Deals ──
+.deals-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.deal-card {
+    width: 260px;
+    flex-shrink: 0;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
+}
+
+.deal-img {
+    height: 130px;
+    padding: 12px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 20px 20px 0 0;
+}
+
+.deal-badge {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 10px;
+}
+
+.deal-body {
+    padding: 12px 14px 16px;
+}
+
+.deal-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.deal-prices {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.deal-price {
+    font-size: 26px;
+    font-weight: 800;
+    color: $red;
+}
+
+.deal-orig {
+    font-size: 20px;
+    color: $t3;
+    text-decoration: line-through;
+}
+
+.deal-dist {
+    font-size: 18px;
+    color: $t3;
+}

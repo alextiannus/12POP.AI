@@ -1,0 +1,171 @@
+@use '../../styles/shared' as *;
+
+.settings-page {
+    @include sub-page;
+}
+
+.settings-header {
+    @include sub-header;
+}
+
+.settings-body {
+    flex: 1;
+    padding: 20px 28px;
+}
+
+.setting-section {
+    margin-bottom: 32px;
+}
+
+.setting-section-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: $t2;
+    margin-bottom: 16px;
+}
+
+// ── Language ──
+.lang-options {
+    display: flex;
+    gap: 14px;
+}
+
+.lang-card {
+    flex: 1;
+    @include card;
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    border: 3px solid transparent;
+    transition: all .2s;
+
+    &.active {
+        border-color: $v2;
+        box-shadow: 0 4px 16px rgba(107, 47, 224, 0.2);
+    }
+}
+
+.lang-flag {
+    font-size: 48px;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.lang-name {
+    font-size: 28px;
+    font-weight: 800;
+    color: $t0;
+    display: block;
+}
+
+.lang-sub {
+    font-size: 20px;
+    color: $t3;
+    display: block;
+    margin-top: 4px;
+}
+
+.lang-check {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 36px;
+    height: 36px;
+    border-radius: 18px;
+    background: $v2;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+// ── Settings Group ──
+.setting-group {
+    @include card;
+    overflow: hidden;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    padding: 22px 26px;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid $div;
+    }
+}
+
+.setting-info {
+    flex: 1;
+}
+
+.setting-name {
+    font-size: 26px;
+    font-weight: 600;
+    color: $t0;
+    display: block;
+}
+
+.setting-desc {
+    font-size: 20px;
+    color: $t3;
+    display: block;
+    margin-top: 4px;
+}
+
+.setting-val {
+    font-size: 24px;
+    color: $t3;
+}
+
+.setting-arrow {
+    font-size: 30px;
+    color: $t3;
+    font-weight: 300;
+}
+
+// Toggle
+.toggle {
+    width: 72px;
+    height: 40px;
+    border-radius: 20px;
+    background: #E5E7EB;
+    position: relative;
+    transition: background .2s;
+    flex-shrink: 0;
+
+    &.on {
+        background: #16A34A;
+    }
+}
+
+.toggle-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    background: #fff;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    transition: transform .2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+
+    .on & {
+        transform: translateX(32px);
+    }
+}
+
+// Logout
+.logout-btn {
+    text-align: center;
+    padding: 28px;
+    border-radius: 22px;
+    background: #fff;
+    color: $red;
+    font-size: 28px;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(60, 30, 10, 0.05);
+    margin-top: 16px;
+}

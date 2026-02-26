@@ -1,0 +1,188 @@
+@use '../../styles/shared' as *;
+
+.wallet-page {
+    @include sub-page;
+}
+
+.wallet-header {
+    @include sub-header;
+    padding-bottom: 0;
+}
+
+.balance-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    border-radius: 28px;
+    padding: 32px 30px;
+    margin-top: 28px;
+}
+
+.balance-label {
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.65);
+    font-weight: 600;
+}
+
+.balance-value {
+    font-size: 56px;
+    font-weight: 900;
+    color: #fff;
+    display: block;
+    margin: 8px 0 20px;
+    letter-spacing: -2px;
+}
+
+.balance-row {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 24px;
+}
+
+.balance-sub {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sub-label {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.sub-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.balance-actions {
+    display: flex;
+    gap: 14px;
+}
+
+.action-btn {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+    border-radius: 18px;
+    font-size: 26px;
+    font-weight: 700;
+
+    &.primary {
+        background: #fff;
+        color: $v2;
+    }
+
+    &.secondary {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+    }
+}
+
+.tx-body {
+    flex: 1;
+    padding: 0 28px;
+}
+
+.tx-header {
+    padding: 28px 0 16px;
+}
+
+.tx-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.tx-filters {
+    display: flex;
+    gap: 10px;
+}
+
+.tx-filter {
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 22px;
+    font-weight: 600;
+    color: $t3;
+    background: $ibg;
+
+    &.active {
+        background: $v2;
+        color: #fff;
+    }
+}
+
+.tx-list {
+    flex: 1;
+}
+
+.tx-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 0;
+    border-bottom: 1px solid $div;
+}
+
+.tx-icon-box {
+    width: 68px;
+    height: 68px;
+    border-radius: 20px;
+    background: $ibg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tx-icon {
+    font-size: 32px;
+}
+
+.tx-info {
+    flex: 1;
+}
+
+.tx-name {
+    font-size: 24px;
+    font-weight: 600;
+    color: $t0;
+    display: block;
+}
+
+.tx-time {
+    font-size: 20px;
+    color: $t3;
+    display: block;
+    margin-top: 4px;
+}
+
+.tx-right {
+    text-align: right;
+}
+
+.tx-amount {
+    font-size: 26px;
+    font-weight: 700;
+    display: block;
+
+    &.income {
+        color: #16A34A;
+    }
+
+    &.expense {
+        color: $t0;
+    }
+}
+
+.tx-status {
+    font-size: 18px;
+    color: $t3;
+    display: block;
+    margin-top: 4px;
+}

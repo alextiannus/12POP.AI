@@ -1,0 +1,271 @@
+$v2: #6B2FE0;
+$v3: #9B62FF;
+$red: #E03020;
+$t0: #180E04;
+$t2: #8A7060;
+$t3: #B5A090;
+$bg: #F8F6F3;
+
+.publish-page {
+    min-height: 100vh;
+    background: $bg;
+}
+
+// ── Header ──
+.pub-header {
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.status-bar {
+    height: 88px;
+}
+
+.pub-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px 14px;
+}
+
+.back-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: $bg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-arrow {
+    font-size: 28px;
+    font-weight: 700;
+    color: $t0;
+}
+
+.nav-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: $t0;
+}
+
+// ── Body ──
+.pub-body {
+    padding: 16px 20px;
+}
+
+// ── Form Section ──
+.form-section {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 12px;
+}
+
+.form-label {
+    font-size: 22px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    margin-bottom: 14px;
+}
+
+.form-input {
+    width: 100%;
+    font-size: 24px;
+    color: $t0;
+    padding: 12px 0;
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.06);
+}
+
+.form-textarea {
+    width: 100%;
+    min-height: 120px;
+    font-size: 22px;
+    color: $t0;
+    border: 1.5px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: 14px;
+    box-sizing: border-box;
+}
+
+.form-placeholder {
+    color: $t3;
+}
+
+// ── Photo Grid ──
+.photo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.photo-item {
+    width: 110px;
+    height: 110px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f3f0ff, #e8e0ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-emoji {
+    font-size: 32px;
+}
+
+.photo-add {
+    width: 110px;
+    height: 110px;
+    border-radius: 14px;
+    border: 2px dashed rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.photo-add-icon {
+    font-size: 36px;
+    color: $t3;
+    font-weight: 300;
+}
+
+.photo-add-text {
+    font-size: 16px;
+    color: $t3;
+}
+
+// ── Category Picker ──
+.cat-picker {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cat-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.cat-selected {
+    background: rgba(107, 47, 224, 0.08);
+    border-color: $v2;
+
+    .cat-option-label {
+        color: $v2;
+        font-weight: 700;
+    }
+}
+
+.cat-option-icon {
+    font-size: 22px;
+}
+
+.cat-option-label {
+    font-size: 20px;
+    font-weight: 600;
+    color: $t2;
+}
+
+// ── Condition ──
+.cond-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.cond-option {
+    padding: 10px 20px;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.cond-selected {
+    background: rgba(107, 47, 224, 0.08);
+    border-color: $v2;
+
+    .cond-label {
+        color: $v2;
+        font-weight: 700;
+    }
+}
+
+.cond-label {
+    font-size: 20px;
+    font-weight: 600;
+    color: $t2;
+}
+
+// ── Price ──
+.price-inputs {
+    display: flex;
+    gap: 12px;
+}
+
+.price-field {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(224, 48, 32, 0.06);
+    border-radius: 14px;
+    padding: 12px 14px;
+}
+
+.price-field-light {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.price-prefix {
+    font-size: 24px;
+    font-weight: 800;
+    color: $red;
+}
+
+.price-prefix-light {
+    font-size: 24px;
+    font-weight: 800;
+    color: $t3;
+}
+
+.price-input {
+    flex: 1;
+    font-size: 24px;
+    font-weight: 600;
+    color: $t0;
+}
+
+// ── Submit Button ──
+.pub-submit {
+    background: linear-gradient(135deg, $v2, $v3);
+    border-radius: 28px;
+    padding: 18px;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: 0 4px 20px rgba(107, 47, 224, 0.3);
+    transition: transform 0.2s ease;
+
+    &:active {
+        transform: scale(0.98);
+    }
+}
+
+.pub-submit-text {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+}
