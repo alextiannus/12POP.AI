@@ -139,7 +139,7 @@ export default function Home() {
                 <View className='section'>
                     <View className='section-header'>
                         <Text className='section-title'>附近自取优惠</Text>
-                        <Text className='section-more'>全部</Text>
+                        <Text className='section-more' onClick={() => Taro.navigateTo({ url: '/pages/coupons/index' })}>全部</Text>
                     </View>
                     <View className='deals-scroll'>
                         {[

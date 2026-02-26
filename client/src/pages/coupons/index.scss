@@ -105,104 +105,79 @@ $bg: #F8F6F3;
     padding: 12px 16px;
 }
 
-// ── Deal Card ──
+// ── Grid ──
+.deals-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+// ── Deal Card (same as Home page style) ──
 .deal-card {
     background: #fff;
     border-radius: 20px;
-    padding: 16px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
     transition: transform 0.2s;
 
     &:active {
-        transform: scale(0.99);
+        transform: scale(0.98);
     }
 }
 
-.deal-icon-box {
-    width: 60px;
-    height: 60px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #f3f0ff, #e8e0ff);
+.deal-img {
+    height: 130px;
+    padding: 12px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    align-items: flex-end;
+    border-radius: 20px 20px 0 0;
 }
 
-.deal-icon {
-    font-size: 32px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+.deal-badge {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 10px;
 }
 
-.deal-info {
-    flex: 1;
-    min-width: 0;
+.deal-body {
+    padding: 12px 14px 16px;
 }
 
-.deal-shop-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 2px;
-}
-
-.deal-shop {
-    font-size: 22px;
+.deal-name {
+    font-size: 24px;
     font-weight: 700;
     color: $t0;
+    display: block;
+    margin-bottom: 4px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.deal-dist {
-    font-size: 16px;
-    color: $t3;
-    flex-shrink: 0;
-}
-
-.deal-item {
-    font-size: 18px;
-    color: $t2;
-    display: block;
+.deal-prices {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin-bottom: 4px;
 }
 
-.deal-price-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
 .deal-price {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 800;
     color: $red;
 }
 
 .deal-orig {
-    font-size: 18px;
+    font-size: 20px;
     color: $t3;
     text-decoration: line-through;
 }
 
-// ── Tag ──
-.deal-tag {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgba(107, 47, 224, 0.1);
-    border-radius: 8px;
-    padding: 3px 10px;
-}
-
-.deal-tag-text {
-    font-size: 16px;
-    font-weight: 600;
-    color: $v2;
+.deal-dist {
+    font-size: 18px;
+    color: $t3;
 }

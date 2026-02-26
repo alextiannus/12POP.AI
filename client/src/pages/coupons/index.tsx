@@ -4,14 +4,16 @@ import { useState } from 'react'
 import './index.scss'
 
 const NEARBY_DEALS = [
-    { id: '1', shop: '益昌老街', dist: '350m', icon: '☕', item: '招牌奶茶', orig: 'S$5.50', deal: 'S$3.90', tag: '自取7折', cat: 'drink' },
-    { id: '2', shop: '168 小厨', dist: '500m', icon: '🍜', item: '海南鸡饭', orig: 'S$6.00', deal: 'S$4.50', tag: '自取75折', cat: 'food' },
-    { id: '3', shop: 'NTUC FairPrice', dist: '800m', icon: '🛒', item: '日用品满$20减$3', orig: '', deal: '减S$3', tag: '超市优惠', cat: 'market' },
-    { id: '4', shop: '好运来面包店', dist: '200m', icon: '🥐', item: '全麦吐司+咖啡', orig: 'S$8.00', deal: 'S$5.50', tag: '套餐价', cat: 'food' },
-    { id: '5', shop: 'Cheers便利店', dist: '150m', icon: '🏪', item: '第二杯半价', orig: '', deal: '半价', tag: '饮品特惠', cat: 'drink' },
-    { id: '6', shop: '阿明虾面', dist: '600m', icon: '🦐', item: '特色虾面', orig: 'S$7.00', deal: 'S$5.00', tag: '自取优惠', cat: 'food' },
-    { id: '7', shop: '鲜花小铺', dist: '1.2km', icon: '💐', item: '鲜花花束', orig: 'S$25', deal: 'S$18', tag: '限时抢', cat: 'other' },
-    { id: '8', shop: '水果摊', dist: '300m', icon: '🍉', item: '时令水果拼盘', orig: 'S$12', deal: 'S$8', tag: '当日鲜', cat: 'food' },
+    { id: '1', name: '手工珍珠奶茶', price: 'S$3.50', orig: 'S$7', disc: '5折', dist: '100m', bg: 'linear-gradient(135deg, #FDE68A, #F59E0B)', cat: 'drink' },
+    { id: '2', name: '叻沙套餐', price: 'S$6.30', orig: 'S$9', disc: '7折', dist: '280m', bg: 'linear-gradient(135deg, #A7F3D0, #059669)', cat: 'food' },
+    { id: '3', name: '海南鸡饭', price: 'S$4.50', orig: 'S$6', disc: '75折', dist: '500m', bg: 'linear-gradient(135deg, #FECACA, #EF4444)', cat: 'food' },
+    { id: '4', name: '全麦吐司+咖啡', price: 'S$5.50', orig: 'S$8', disc: '套餐价', dist: '200m', bg: 'linear-gradient(135deg, #DDD6FE, #8B5CF6)', cat: 'food' },
+    { id: '5', name: '第二杯半价', price: '半价', orig: '', disc: '限时', dist: '150m', bg: 'linear-gradient(135deg, #BAE6FD, #0EA5E9)', cat: 'drink' },
+    { id: '6', name: '特色虾面', price: 'S$5.00', orig: 'S$7', disc: '自取价', dist: '600m', bg: 'linear-gradient(135deg, #FED7AA, #F97316)', cat: 'food' },
+    { id: '7', name: '鲜花花束', price: 'S$18', orig: 'S$25', disc: '限时抢', dist: '1.2km', bg: 'linear-gradient(135deg, #FBCFE8, #EC4899)', cat: 'other' },
+    { id: '8', name: '时令水果拼盘', price: 'S$8', orig: 'S$12', disc: '当日鲜', dist: '300m', bg: 'linear-gradient(135deg, #BBF7D0, #22C55E)', cat: 'food' },
+    { id: '9', name: '日用品满减', price: '减S$3', orig: '满S$20', disc: '超市', dist: '800m', bg: 'linear-gradient(135deg, #E0E7FF, #6366F1)', cat: 'market' },
+    { id: '10', name: '椰浆饭套餐', price: 'S$3.80', orig: 'S$5.50', disc: '7折', dist: '450m', bg: 'linear-gradient(135deg, #CCFBF1, #14B8A6)', cat: 'food' },
 ]
 
 const CATS = [
@@ -39,7 +41,7 @@ export default function Coupons() {
                     <Text className='deals-title'>附近自取优惠</Text>
                     <View className='deals-loc'>
                         <Text className='deals-loc-icon'>📍</Text>
-                        <Text className='deals-loc-text'>500m内</Text>
+                        <Text className='deals-loc-text'>附近</Text>
                     </View>
                 </View>
                 {/* Category Filter */}
@@ -56,42 +58,38 @@ export default function Coupons() {
                 </ScrollView>
             </View>
 
-            {/* Deals List */}
+            {/* Deals Grid */}
             <ScrollView scrollY className='deals-body'>
-                {filtered.map(deal => (
-                    <View className='deal-card' key={deal.id} onClick={() => {
-                        Taro.showModal({
-                            title: `${deal.shop} · ${deal.item}`,
-                            content: `优惠价 ${deal.deal}${deal.orig ? `（原价 ${deal.orig}）` : ''}\n距离 ${deal.dist}\n\n到店出示此页面即可享受优惠`,
-                            confirmText: '导航到店',
-                            cancelText: '关闭',
-                            confirmColor: '#6B2FE0',
-                            success: (res) => {
-                                if (res.confirm) {
-                                    Taro.showToast({ title: '正在为您导航…', icon: 'none' })
-                                }
-                            },
-                        })
-                    }}>
-                        <View className='deal-icon-box'>
-                            <Text className='deal-icon'>{deal.icon}</Text>
-                        </View>
-                        <View className='deal-info'>
-                            <View className='deal-shop-row'>
-                                <Text className='deal-shop'>{deal.shop}</Text>
-                                <Text className='deal-dist'>{deal.dist}</Text>
+                <View className='deals-grid'>
+                    {filtered.map(deal => (
+                        <View className='deal-card' key={deal.id} onClick={() => {
+                            Taro.showModal({
+                                title: deal.name,
+                                content: `优惠价 ${deal.price}${deal.orig ? `（原价 ${deal.orig}）` : ''}\n距离 ${deal.dist}\n\n到店出示此页面即可享受优惠`,
+                                confirmText: '导航到店',
+                                cancelText: '关闭',
+                                confirmColor: '#6B2FE0',
+                                success: (res) => {
+                                    if (res.confirm) {
+                                        Taro.showToast({ title: '正在为您导航…', icon: 'none' })
+                                    }
+                                },
+                            })
+                        }}>
+                            <View className='deal-img' style={{ background: deal.bg }}>
+                                <Text className='deal-badge'>{deal.disc}</Text>
                             </View>
-                            <Text className='deal-item'>{deal.item}</Text>
-                            <View className='deal-price-row'>
-                                <Text className='deal-price'>{deal.deal}</Text>
-                                {deal.orig && <Text className='deal-orig'>{deal.orig}</Text>}
+                            <View className='deal-body'>
+                                <Text className='deal-name'>{deal.name}</Text>
+                                <View className='deal-prices'>
+                                    <Text className='deal-price'>{deal.price}</Text>
+                                    {deal.orig && <Text className='deal-orig'>{deal.orig}</Text>}
+                                </View>
+                                <Text className='deal-dist'>📍 {deal.dist}</Text>
                             </View>
                         </View>
-                        <View className='deal-tag'>
-                            <Text className='deal-tag-text'>{deal.tag}</Text>
-                        </View>
-                    </View>
-                ))}
+                    ))}
+                </View>
                 <View style={{ height: '80px' }} />
             </ScrollView>
         </View>
