@@ -16,7 +16,7 @@ function getNow() {
     return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 }
 
-const TIP_OPTIONS = [0, 2, 5, 8]
+const TIP_OPTIONS = [0, 3, 5, 8]
 const PLATFORM_FEE_RATE = 0.033
 const MIN_PLATFORM_FEE = 2.0
 
@@ -52,12 +52,10 @@ export default function Errand() {
     const [messages, setMessages] = useState<ChatMsg[]>([])
     const [chatType, setChatType] = useState<'errand' | 'onsite'>('errand')
 
-    // Delivery pricing
-    const deliveryBase = 5.00
-    const deliveryDist = 3.00
-    const deliverySubtotal = deliveryBase + deliveryDist
-    const deliveryPlatformFee = Math.max(deliverySubtotal * PLATFORM_FEE_RATE, MIN_PLATFORM_FEE)
-    const deliveryTotal = deliverySubtotal + deliveryPlatformFee + deliveryTip
+    // Delivery pricing (配送费 will come from backend API)
+    const deliveryFee = 8.00
+    const deliveryPlatformFee = Math.max(deliveryFee * PLATFORM_FEE_RATE, MIN_PLATFORM_FEE)
+    const deliveryTotal = deliveryFee + deliveryPlatformFee + deliveryTip
 
     // Initialize AI chat for a given type
     const initChat = useCallback((type: 'errand' | 'onsite') => {
@@ -162,7 +160,7 @@ export default function Errand() {
         }
         Taro.showModal({
             title: '确认下单',
-            content: `总计 S$${deliveryTotal.toFixed(2)}\n（配送费 S$${deliverySubtotal.toFixed(2)} + 服务费 S$${deliveryPlatformFee.toFixed(2)}${deliveryTip > 0 ? ` + 小费 S$${deliveryTip.toFixed(2)}` : ''}）`,
+            content: `总计 S$${deliveryTotal.toFixed(2)}\n（配送费 S$${deliveryFee.toFixed(2)} + 服务费 S$${deliveryPlatformFee.toFixed(2)}${deliveryTip > 0 ? ` + 小费 S$${deliveryTip.toFixed(2)}` : ''}）`,
             confirmText: '确认支付',
             confirmColor: '#6B2FE0',
             success: (res) => {
@@ -284,12 +282,8 @@ export default function Errand() {
                     <View className='form-card'>
                         <Text className='fc-label'>💰 费用明细</Text>
                         <View className='price-line'>
-                            <Text className='pl-name'>配送基础费</Text>
-                            <Text className='pl-value'>S${deliveryBase.toFixed(2)}</Text>
-                        </View>
-                        <View className='price-line'>
-                            <Text className='pl-name'>距离费（约2.3km）</Text>
-                            <Text className='pl-value'>S${deliveryDist.toFixed(2)}</Text>
+                            <Text className='pl-name'>配送费</Text>
+                            <Text className='pl-value'>S${deliveryFee.toFixed(2)}</Text>
                         </View>
                         <View className='price-line'>
                             <Text className='pl-name'>平台服务费（3.3%，最低S$2）</Text>
