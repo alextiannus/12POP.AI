@@ -1,70 +1,98 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useState } from 'react'
-import { useI18n } from '../../i18n'
 import './index.scss'
 
-const MOCK_COUPONS = [
-    { id: '1', title: '新用户跑腿减免', amount: 'S$5', desc: '跑腿订单满S$8可用', status: 'available', expiry: '2026-03-31', color: '#6B2FE0' },
-    { id: '2', title: '上门服务折扣', amount: '8折', desc: '上门清洁/维修服务可用', status: 'available', expiry: '2026-03-15', color: '#059669' },
-    { id: '3', title: '首单奶茶减免', amount: 'S$3', desc: '代买饮品订单可用', status: 'available', expiry: '2026-04-01', color: '#D97706' },
-    { id: '4', title: '周末取送优惠', amount: 'S$2', desc: '同城取送订单可用', status: 'used', expiry: '2026-02-20', color: '#9CA3AF' },
-    { id: '5', title: '节日清洁优惠', amount: 'S$10', desc: '上门深度清洁可用', status: 'expired', expiry: '2026-01-31', color: '#9CA3AF' },
+const NEARBY_DEALS = [
+    { id: '1', shop: '益昌老街', dist: '350m', icon: '☕', item: '招牌奶茶', orig: 'S$5.50', deal: 'S$3.90', tag: '自取7折', cat: 'drink' },
+    { id: '2', shop: '168 小厨', dist: '500m', icon: '🍜', item: '海南鸡饭', orig: 'S$6.00', deal: 'S$4.50', tag: '自取75折', cat: 'food' },
+    { id: '3', shop: 'NTUC FairPrice', dist: '800m', icon: '🛒', item: '日用品满$20减$3', orig: '', deal: '减S$3', tag: '超市优惠', cat: 'market' },
+    { id: '4', shop: '好运来面包店', dist: '200m', icon: '🥐', item: '全麦吐司+咖啡', orig: 'S$8.00', deal: 'S$5.50', tag: '套餐价', cat: 'food' },
+    { id: '5', shop: 'Cheers便利店', dist: '150m', icon: '🏪', item: '第二杯半价', orig: '', deal: '半价', tag: '饮品特惠', cat: 'drink' },
+    { id: '6', shop: '阿明虾面', dist: '600m', icon: '🦐', item: '特色虾面', orig: 'S$7.00', deal: 'S$5.00', tag: '自取优惠', cat: 'food' },
+    { id: '7', shop: '鲜花小铺', dist: '1.2km', icon: '💐', item: '鲜花花束', orig: 'S$25', deal: 'S$18', tag: '限时抢', cat: 'other' },
+    { id: '8', shop: '水果摊', dist: '300m', icon: '🍉', item: '时令水果拼盘', orig: 'S$12', deal: 'S$8', tag: '当日鲜', cat: 'food' },
+]
+
+const CATS = [
+    { key: 'all', label: '全部' },
+    { key: 'food', label: '🍜 美食' },
+    { key: 'drink', label: '☕ 饮品' },
+    { key: 'market', label: '🛒 超市' },
+    { key: 'other', label: '🎁 其他' },
 ]
 
 export default function Coupons() {
-    const { t } = useI18n()
-    const [filter, setFilter] = useState<'available' | 'used' | 'expired'>('available')
+    const [cat, setCat] = useState('all')
 
-    const filtered = MOCK_COUPONS.filter(c => c.status === filter)
+    const filtered = cat === 'all' ? NEARBY_DEALS : NEARBY_DEALS.filter(d => d.cat === cat)
 
     return (
-        <View className='coupons-page'>
-            <View className='coupons-header'>
+        <View className='deals-page'>
+            {/* Header */}
+            <View className='deals-header'>
                 <View className='status-bar' />
-                <View className='sub-header-top'>
-                    <View className='back-btn' onClick={() => Taro.navigateBack()}>‹</View>
-                    <Text className='sub-title'>{t('coupon_title')}</Text>
+                <View className='deals-header-row'>
+                    <View className='back-btn' onClick={() => Taro.navigateBack()}>
+                        <Text className='back-arrow'>←</Text>
+                    </View>
+                    <Text className='deals-title'>附近自取优惠</Text>
+                    <View className='deals-loc'>
+                        <Text className='deals-loc-icon'>📍</Text>
+                        <Text className='deals-loc-text'>500m内</Text>
+                    </View>
                 </View>
-                <View className='coupon-tabs'>
-                    {(['available', 'used', 'expired'] as const).map(f => (
-                        <Text
-                            key={f}
-                            className={`coupon-tab ${filter === f ? 'active' : ''}`}
-                            onClick={() => setFilter(f)}
+                {/* Category Filter */}
+                <ScrollView scrollX className='deals-cats'>
+                    {CATS.map(c => (
+                        <View
+                            key={c.key}
+                            className={`deals-cat ${cat === c.key ? 'deals-cat-active' : ''}`}
+                            onClick={() => setCat(c.key)}
                         >
-                            {f === 'available' ? `${t('available')} (3)` : f === 'used' ? t('used') : t('expired')}
-                        </Text>
+                            <Text className={`deals-cat-text ${cat === c.key ? 'deals-cat-text-active' : ''}`}>{c.label}</Text>
+                        </View>
                     ))}
-                </View>
+                </ScrollView>
             </View>
 
-            <ScrollView scrollY className='coupons-body'>
-                {filtered.length === 0 && (
-                    <View className='empty'>
-                        <Text className='empty-icon'>🎟️</Text>
-                        <Text className='empty-text'>暂无优惠券</Text>
-                    </View>
-                )}
-                {filtered.map(coupon => (
-                    <View className={`coupon-card ${coupon.status}`} key={coupon.id}>
-                        <View className='coupon-left' style={{ background: coupon.color }}>
-                            <Text className='coupon-amount'>{coupon.amount}</Text>
-                            <Text className='coupon-type'>OFF</Text>
+            {/* Deals List */}
+            <ScrollView scrollY className='deals-body'>
+                {filtered.map(deal => (
+                    <View className='deal-card' key={deal.id} onClick={() => {
+                        Taro.showModal({
+                            title: `${deal.shop} · ${deal.item}`,
+                            content: `优惠价 ${deal.deal}${deal.orig ? `（原价 ${deal.orig}）` : ''}\n距离 ${deal.dist}\n\n到店出示此页面即可享受优惠`,
+                            confirmText: '导航到店',
+                            cancelText: '关闭',
+                            confirmColor: '#6B2FE0',
+                            success: (res) => {
+                                if (res.confirm) {
+                                    Taro.showToast({ title: '正在为您导航…', icon: 'none' })
+                                }
+                            },
+                        })
+                    }}>
+                        <View className='deal-icon-box'>
+                            <Text className='deal-icon'>{deal.icon}</Text>
                         </View>
-                        <View className='coupon-right'>
-                            <Text className='coupon-title'>{coupon.title}</Text>
-                            <Text className='coupon-desc'>{coupon.desc}</Text>
-                            <View className='coupon-footer'>
-                                <Text className='coupon-expiry'>{t('valid_until')} {coupon.expiry}</Text>
-                                {coupon.status === 'available' && (
-                                    <View className='coupon-use'>{t('use_now')}</View>
-                                )}
+                        <View className='deal-info'>
+                            <View className='deal-shop-row'>
+                                <Text className='deal-shop'>{deal.shop}</Text>
+                                <Text className='deal-dist'>{deal.dist}</Text>
                             </View>
+                            <Text className='deal-item'>{deal.item}</Text>
+                            <View className='deal-price-row'>
+                                <Text className='deal-price'>{deal.deal}</Text>
+                                {deal.orig && <Text className='deal-orig'>{deal.orig}</Text>}
+                            </View>
+                        </View>
+                        <View className='deal-tag'>
+                            <Text className='deal-tag-text'>{deal.tag}</Text>
                         </View>
                     </View>
                 ))}
-                <View style={{ height: '100px' }} />
+                <View style={{ height: '80px' }} />
             </ScrollView>
         </View>
     )

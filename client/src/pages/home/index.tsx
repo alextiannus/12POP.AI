@@ -96,7 +96,7 @@ export default function Home() {
                             <Text className='svc-name'>上门服务</Text>
                             <Text className='svc-desc'>清洁维修 到家安装</Text>
                         </View>
-                        <View className='svc-card' onClick={() => goToErrand(1)}>
+                        <View className='svc-card' onClick={() => Taro.navigateTo({ url: '/pages/coupons/index' })}>
                             <View className='svc-icon-circle green-bg'>
                                 <Text className='svc-emoji'>🏪</Text>
                             </View>
