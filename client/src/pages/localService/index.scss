@@ -1,5 +1,6 @@
 $v2: #6B2FE0;
 $v3: #9B62FF;
+$red: #E03020;
 $t0: #180E04;
 $t2: #8A7060;
 $t3: #B5A090;
@@ -16,6 +17,7 @@ $bg: #F8F6F3;
 .ls-header {
     background: #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    z-index: 10;
 }
 
 .status-bar {
@@ -26,7 +28,7 @@ $bg: #F8F6F3;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px 16px;
+    padding: 0 16px 14px;
 }
 
 .back-btn {
@@ -51,126 +53,367 @@ $bg: #F8F6F3;
     color: $t0;
 }
 
-.ls-location {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+.mode-toggle {
+    background: rgba(107, 47, 224, 0.08);
+    border-radius: 16px;
+    padding: 6px 14px;
 }
 
-.ls-loc-icon {
-    font-size: 18px;
-}
-
-.ls-loc-text {
+.mode-toggle-text {
     font-size: 20px;
-    color: $t2;
     font-weight: 600;
+    color: $v2;
 }
 
-// ── Body ──
+// ── Form Body ──
 .ls-body {
     flex: 1;
-    padding: 16px 20px;
+    padding: 12px 16px;
 }
 
-// ── Section ──
-.ls-section {
-    margin-bottom: 24px;
+// ── Service Grid ──
+.svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
 }
 
-.ls-section-title {
-    font-size: 26px;
+.svc-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s;
+
+    &:active {
+        transform: scale(0.96);
+    }
+}
+
+.svc-icon {
+    font-size: 36px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.svc-label {
+    font-size: 20px;
+    font-weight: 700;
+    color: $t0;
+}
+
+.svc-desc {
+    font-size: 15px;
+    color: $t3;
+    text-align: center;
+}
+
+// ── Form Cards ──
+.form-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.fc-label {
+    font-size: 22px;
     font-weight: 700;
     color: $t0;
     display: block;
     margin-bottom: 14px;
 }
 
-// ── Category Grid ──
-.ls-cat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+.fc-textarea {
+    width: 100%;
+    min-height: 100px;
+    font-size: 22px;
+    color: $t0;
+    border: 1.5px solid rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+    padding: 14px;
+    box-sizing: border-box;
+    line-height: 1.5;
 }
 
-.ls-cat-card {
-    background: #fff;
-    border-radius: 20px;
+.fc-placeholder {
+    color: $t3;
+}
+
+.addr-input {
+    font-size: 22px;
+    color: $t0;
+    padding: 12px 0;
+    border-bottom: 1.5px solid rgba(0, 0, 0, 0.06);
+    width: 100%;
+}
+
+// ── Pricing ──
+.price-field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.pf-left {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.pf-name {
+    font-size: 22px;
+    font-weight: 600;
+    color: $t0;
+}
+
+.pf-hint {
+    font-size: 16px;
+    color: $t3;
+}
+
+.pf-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+    padding: 8px 14px;
+    min-width: 140px;
+}
+
+.pf-prefix {
+    font-size: 22px;
+    font-weight: 700;
+    color: $red;
+}
+
+.pf-input {
+    font-size: 24px;
+    font-weight: 700;
+    color: $t0;
+    width: 80px;
+    text-align: right;
+}
+
+.fee-auto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.fee-auto-label {
+    font-size: 20px;
+    color: $t2;
+}
+
+.fee-auto-value {
+    font-size: 22px;
+    font-weight: 600;
+    color: $t0;
+}
+
+// ── Tip ──
+.tip-section {
+    padding: 14px 0;
+}
+
+.tip-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+}
+
+.tip-hint {
+    font-size: 16px;
+    color: $t3;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.tip-options {
+    display: flex;
+    gap: 10px;
+}
+
+.tip-chip {
+    flex: 1;
+    padding: 10px;
+    border-radius: 14px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.03);
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.tip-active {
+    background: rgba(107, 47, 224, 0.08);
+    border-color: $v2;
+
+    .tip-text {
+        color: $v2;
+        font-weight: 700;
+    }
+}
+
+.tip-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: $t2;
+}
+
+// ── Total ──
+.price-divider {
+    height: 1.5px;
+    background: rgba(0, 0, 0, 0.06);
+    margin: 14px 0;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total-label {
+    font-size: 24px;
+    font-weight: 700;
+    color: $t0;
+}
+
+.total-value {
+    font-size: 32px;
+    font-weight: 900;
+    color: $red;
+}
+
+.total-breakdown {
+    margin-top: 4px;
+}
+
+.tb-text {
+    font-size: 16px;
+    color: $t3;
+}
+
+// ── Submit ──
+.submit-btn {
+    background: linear-gradient(135deg, $v2, $v3);
+    border-radius: 28px;
     padding: 18px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    transition: transform 0.2s;
+    text-align: center;
+    margin-top: 12px;
+    box-shadow: 0 4px 20px rgba(107, 47, 224, 0.3);
 
     &:active {
         transform: scale(0.98);
     }
 }
 
-.ls-cat-icon-box {
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #f3f0ff, #e8e0ff);
+.submit-text {
+    font-size: 26px;
+    font-weight: 800;
+    color: #fff;
+}
+
+// ── Chat Mode ──
+.chat-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.agent-strip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.agent-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $v2, $v3);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
 }
 
-.ls-cat-icon {
-    font-size: 28px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+.agent-avatar-text {
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
 }
 
-.ls-cat-name {
+.agent-info {
+    flex: 1;
+}
+
+.agent-name {
     font-size: 22px;
     font-weight: 700;
     color: $t0;
     display: block;
 }
 
-.ls-cat-desc {
+.agent-status {
     font-size: 17px;
-    color: $t3;
-    display: block;
-    margin-top: 2px;
+    color: #22C55E;
 }
 
-.ls-cat-discount {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgba(107, 47, 224, 0.1);
-    border-radius: 8px;
-    padding: 3px 8px;
+.agent-badge {
+    background: rgba(107, 47, 224, 0.08);
+    border-radius: 12px;
+    padding: 6px 12px;
 }
 
-.ls-cat-discount-text {
-    font-size: 16px;
+.agent-badge-text {
+    font-size: 18px;
     font-weight: 600;
     color: $v2;
 }
 
-// ── Merchants ──
-.ls-merchant {
-    background: #fff;
-    border-radius: 20px;
-    padding: 18px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+.chat-scroll {
+    flex: 1;
+}
 
-    &:active {
-        transform: scale(0.99);
+.chat-messages {
+    padding: 16px;
+}
+
+.msg {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+
+    &.user {
+        flex-direction: row-reverse;
+
+        .msg-bubble {
+            background: $v2;
+            color: #fff;
+            border-radius: 20px 4px 20px 20px;
+        }
     }
 }
 
-.ls-merchant-avatar {
-    width: 56px;
-    height: 56px;
+.msg-avatar {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: linear-gradient(135deg, $v2, $v3);
     display: flex;
@@ -179,55 +422,113 @@ $bg: #F8F6F3;
     flex-shrink: 0;
 }
 
-.ls-merchant-initial {
-    font-size: 24px;
-    font-weight: 800;
+.msg-avatar-text {
+    font-size: 14px;
+    font-weight: 900;
     color: #fff;
 }
 
-.ls-merchant-info {
-    flex: 1;
+.msg-group {
+    max-width: 75%;
 }
 
-.ls-merchant-name {
+.msg-bubble {
+    background: #fff;
+    border-radius: 4px 20px 20px 20px;
+    padding: 14px 16px;
     font-size: 22px;
-    font-weight: 700;
     color: $t0;
-    display: block;
-    margin-bottom: 4px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
-.ls-merchant-meta {
+.msg-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.chip-btn {
+    background: rgba(107, 47, 224, 0.08);
+    color: $v2;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 16px;
+
+    &:active {
+        background: rgba(107, 47, 224, 0.15);
+    }
+}
+
+.typing {
+    display: flex;
+    gap: 6px;
+    padding: 14px 16px;
+
+    .typing-dot {
+        font-size: 18px;
+        color: $t3;
+        animation: blink 1.2s infinite;
+
+        &:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.chat-input-bar {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    padding: 12px 16px 50px;
+    background: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
 }
 
-.ls-merchant-rating {
-    font-size: 18px;
-    color: $t2;
-}
-
-.ls-merchant-dist {
-    font-size: 18px;
-    color: $t3;
-}
-
-.ls-merchant-tag {
-    background: rgba(107, 47, 224, 0.08);
-    border-radius: 6px;
-    padding: 2px 8px;
-}
-
-.ls-merchant-tag-text {
-    font-size: 16px;
-    font-weight: 600;
-    color: $v2;
-}
-
-.ls-merchant-price {
+.chat-input {
+    flex: 1;
+    background: $bg;
+    border-radius: 24px;
+    padding: 12px 18px;
     font-size: 22px;
+    color: $t0;
+}
+
+.chat-send {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $v2, $v3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+.chat-send-icon {
+    font-size: 24px;
     font-weight: 700;
-    color: #E03020;
-    flex-shrink: 0;
+    color: #fff;
 }
