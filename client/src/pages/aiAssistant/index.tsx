@@ -137,21 +137,21 @@ export default function AIAssistant() {
                     {/* Floating Suggestion Cards */}
                     <View className='float-cards-container'>
                         <View className='float-card card-1'>
-                            <Text className='fc-title'>今天的午餐有折扣寿司吗？</Text>
-                            <View className='try-btn' onClick={() => handleSend('今天的午餐有折扣寿司吗？')}>
-                                <Text className='try-icon'>💬</Text> 试一试
+                            <Text className='fc-title'>帮我去NTUC买2瓶牛奶送到家</Text>
+                            <View className='try-btn' onClick={() => handleSend('帮我去NTUC买2瓶牛奶送到家')}>
+                                <Text className='try-icon'>🛒</Text> 跑腿代买
                             </View>
                         </View>
                         <View className='float-card card-2'>
-                            <Text className='fc-title'>探索下附近的甜品店？</Text>
-                            <View className='try-btn' onClick={() => handleSend('探索下附近的甜品店？')}>
-                                <Text className='try-icon'>💬</Text> 试一试
+                            <Text className='fc-title'>预约明天下午上门清洁3房1厅</Text>
+                            <View className='try-btn' onClick={() => handleSend('预约明天下午上门清洁3房1厅')}>
+                                <Text className='try-icon'>🏠</Text> 上门服务
                             </View>
                         </View>
                         <View className='float-card card-3'>
-                            <Text className='fc-title'>我附近有什么有折扣的咖啡店吗？</Text>
-                            <View className='try-btn' onClick={() => handleSend('我附近有什么有折扣的咖啡店吗？')}>
-                                <Text className='try-icon'>💬</Text> 试一试
+                            <Text className='fc-title'>附近有什么自取优惠的午餐？</Text>
+                            <View className='try-btn' onClick={() => handleSend('附近有什么自取优惠的午餐？')}>
+                                <Text className='try-icon'>🍜</Text> 自取优惠
                             </View>
                         </View>
                     </View>
