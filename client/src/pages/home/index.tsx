@@ -1,10 +1,16 @@
 import { View, Text, Input, ScrollView } from '@tarojs/components'
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { useState } from 'react'
+import { getActiveOrders, type Order } from '../../services/orderStore'
 import './index.scss'
 
 export default function Home() {
     const [inputValue, setInputValue] = useState('')
+    const [activeOrders, setActiveOrders] = useState<Order[]>([])
+
+    useDidShow(() => {
+        setActiveOrders(getActiveOrders())
+    })
 
     const goToErrand = (tab?: number) => {
         if (tab !== undefined) Taro.setStorageSync('errandTab', tab)
@@ -62,6 +68,31 @@ export default function Home() {
             </View>
 
             <ScrollView scrollY className='home-body'>
+                {/* Active Orders */}
+                {activeOrders.length > 0 && (
+                    <View className='section'>
+                        <View className='section-header'>
+                            <Text className='section-title'>进行中的任务</Text>
+                            <Text className='section-more' onClick={() => Taro.navigateTo({ url: '/pages/orders/index' })}>全部</Text>
+                        </View>
+                        {activeOrders.slice(0, 2).map(order => (
+                            <View className='active-order' key={order.id} onClick={() => Taro.navigateTo({ url: '/pages/orders/index' })}>
+                                <View className='ao-icon-wrap'>
+                                    <Text className='ao-icon'>{order.icon}</Text>
+                                </View>
+                                <View className='ao-info'>
+                                    <Text className='ao-name'>{order.service}</Text>
+                                    <Text className='ao-meta'>{order.id} · S${order.total.toFixed(2)}</Text>
+                                </View>
+                                <View className='ao-status-wrap'>
+                                    <View className='ao-status-dot' />
+                                    <Text className='ao-status'>{order.statusText}</Text>
+                                </View>
+                            </View>
+                        ))}
+                    </View>
+                )}
+
                 {/* Services */}
                 <View className='section'>
                     <View className='section-header'>

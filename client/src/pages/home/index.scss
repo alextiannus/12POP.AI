@@ -391,6 +391,95 @@ $bg: #F8F6F3;
     white-space: nowrap;
 }
 
+// ── Active Order ──
+.active-order {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border-left: 4px solid $v2;
+
+    &:active {
+        transform: scale(0.99);
+    }
+}
+
+.ao-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f3f0ff, #e8e0ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ao-icon {
+    font-size: 26px;
+}
+
+.ao-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.ao-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ao-meta {
+    font-size: 16px;
+    color: $t3;
+    display: block;
+    margin-top: 2px;
+}
+
+.ao-status-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.ao-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22C55E;
+    animation: pulse-dot 1.5s infinite;
+}
+
+.ao-status {
+    font-size: 16px;
+    font-weight: 600;
+    color: #22C55E;
+}
+
+@keyframes pulse-dot {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+}
+
 // ── Deals ──
 .deals-scroll {
     display: flex;

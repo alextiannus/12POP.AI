@@ -594,74 +594,112 @@ $bg: #F8F6F3;
 .order-preview {
     background: #fff;
     border-radius: 20px;
-    padding: 18px;
-    box-shadow: 0 2px 12px rgba(107, 47, 224, 0.1);
-    border: 1.5px solid rgba(107, 47, 224, 0.12);
+    box-shadow: 0 4px 20px rgba(107, 47, 224, 0.12);
+    border: 1.5px solid rgba(107, 47, 224, 0.1);
     min-width: 280px;
-    max-width: 320px;
+    max-width: 340px;
+    overflow: hidden;
 }
 
-.op-header {
+.op-card-header {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 14px;
+    gap: 12px;
+    padding: 16px 18px;
+    background: linear-gradient(135deg, rgba(107, 47, 224, 0.06), rgba(155, 98, 255, 0.06));
+    border-bottom: 1px solid rgba(107, 47, 224, 0.08);
 }
 
-.op-icon {
-    font-size: 22px;
+.op-card-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, $v2, $v3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.op-title {
+.op-card-icon {
+    font-size: 24px;
+    filter: brightness(1.1);
+}
+
+.op-card-header-info {
+    flex: 1;
+}
+
+.op-card-title {
     font-size: 22px;
     font-weight: 800;
     color: $v2;
+    display: block;
 }
 
-.op-info {
-    margin-bottom: 4px;
+.op-card-sub {
+    font-size: 16px;
+    color: $t3;
+    display: block;
+    margin-top: 1px;
 }
 
-.op-row {
+// ── Info Card ──
+.op-info-card {
+    padding: 14px 18px 6px;
+}
+
+.op-info-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 10px;
     padding: 6px 0;
 }
 
-.op-label {
-    font-size: 18px;
-    color: $t3;
-    flex-shrink: 0;
+.op-info-icon {
+    font-size: 16px;
+    margin-top: 3px;
 }
 
-.op-value {
-    font-size: 18px;
+.op-info-content {
+    flex: 1;
+}
+
+.op-info-label {
+    font-size: 14px;
+    color: $t3;
+    display: block;
+}
+
+.op-info-value {
+    font-size: 20px;
     font-weight: 600;
     color: $t0;
-    text-align: right;
-    flex: 1;
-    margin-left: 12px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: block;
 }
 
-.op-divider {
-    height: 1px;
-    background: rgba(0, 0, 0, 0.06);
-    margin: 10px 0;
+// ── Pricing Section ──
+.op-pricing {
+    padding: 6px 18px;
+    border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.op-pricing-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    margin-bottom: 4px;
 }
 
 .op-field {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 0;
+    padding: 6px 0;
 }
 
 .op-field-label {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: $t0;
 }
@@ -673,20 +711,20 @@ $bg: #F8F6F3;
     background: rgba(0, 0, 0, 0.03);
     border-radius: 10px;
     padding: 6px 12px;
-    min-width: 120px;
+    min-width: 110px;
 }
 
 .op-prefix {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: $red;
 }
 
 .op-input {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     color: $t0;
-    width: 70px;
+    width: 60px;
     text-align: right;
 }
 
@@ -694,30 +732,31 @@ $bg: #F8F6F3;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 0;
+    padding: 6px 0;
 }
 
 .op-auto-label {
-    font-size: 17px;
+    font-size: 15px;
     color: $t3;
 }
 
 .op-auto-value {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: $t0;
 }
 
+// ── Tip ──
 .op-tip-section {
-    padding: 8px 0;
+    padding: 6px 18px 10px;
 }
 
 .op-tip-label {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: $t0;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .op-tip-options {
@@ -746,26 +785,29 @@ $bg: #F8F6F3;
 }
 
 .op-tip-text {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
     color: $t2;
 }
 
 .op-tip-hint {
-    font-size: 14px;
+    font-size: 13px;
     color: $t3;
     display: block;
-    margin-top: 6px;
+    margin-top: 4px;
 }
 
-.op-total-row {
+// ── Total ──
+.op-total-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 12px 18px;
+    background: rgba(0, 0, 0, 0.02);
 }
 
 .op-total-label {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     color: $t0;
 }
@@ -776,12 +818,14 @@ $bg: #F8F6F3;
     color: $red;
 }
 
+// ── Pay Button ──
 .op-pay-btn {
+    margin: 0 18px 16px;
     background: linear-gradient(135deg, $v2, $v3);
     border-radius: 20px;
     padding: 14px;
     text-align: center;
-    margin-top: 12px;
+    margin-top: 10px;
     box-shadow: 0 3px 16px rgba(107, 47, 224, 0.3);
 
     &:active {
@@ -790,7 +834,7 @@ $bg: #F8F6F3;
 }
 
 .op-pay-text {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 800;
     color: #fff;
 }

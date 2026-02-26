@@ -2,6 +2,7 @@ import { View, Text, Input, ScrollView } from '@tarojs/components'
 import Taro, { useDidShow } from '@tarojs/taro'
 import { useState, useRef, useCallback } from 'react'
 import * as api from '../../services/api'
+import { saveOrder, generateOrderId, type Order } from '../../services/orderStore'
 import './index.scss'
 
 interface OrderPreview {
@@ -132,6 +133,11 @@ export default function Errand() {
     const handleSendMessage = async (text?: string) => {
         const msg = text || chatInput
         if (!msg.trim() || isStreaming) return
+
+        // Handle special chip actions
+        if (msg === '查看订单') { Taro.navigateTo({ url: '/pages/orders/index' }); return }
+        if (msg === '返回首页') { Taro.switchTab({ url: '/pages/home/index' }); return }
+
         setMessages(prev => [...prev, { role: 'user', content: msg, time: getNow() }])
         if (!text) setChatInput('')
         userMsgCountRef.current += 1
@@ -425,47 +431,70 @@ export default function Errand() {
                                     <View className='msg-group'>
                                         {msg.orderPreview ? (
                                             <View className='order-preview'>
-                                                <View className='op-header'>
-                                                    <Text className='op-icon'>📋</Text>
-                                                    <Text className='op-title'>订单预览</Text>
+                                                {/* Card Header */}
+                                                <View className='op-card-header'>
+                                                    <View className='op-card-icon-wrap'>
+                                                        <Text className='op-card-icon'>{chatType === 'errand' ? '🛒' : '🏠'}</Text>
+                                                    </View>
+                                                    <View className='op-card-header-info'>
+                                                        <Text className='op-card-title'>订单确认</Text>
+                                                        <Text className='op-card-sub'>请确认以下信息无误</Text>
+                                                    </View>
                                                 </View>
-                                                <View className='op-info'>
-                                                    <View className='op-row'>
-                                                        <Text className='op-label'>服务</Text>
-                                                        <Text className='op-value'>{msg.orderPreview.service}</Text>
+
+                                                {/* Service Info */}
+                                                <View className='op-info-card'>
+                                                    <View className='op-info-row'>
+                                                        <Text className='op-info-icon'>📌</Text>
+                                                        <View className='op-info-content'>
+                                                            <Text className='op-info-label'>服务内容</Text>
+                                                            <Text className='op-info-value'>{msg.orderPreview.service}</Text>
+                                                        </View>
                                                     </View>
                                                     {msg.orderPreview.from && (
-                                                        <View className='op-row'>
-                                                            <Text className='op-label'>取件/地址</Text>
-                                                            <Text className='op-value'>{msg.orderPreview.from}</Text>
+                                                        <View className='op-info-row'>
+                                                            <Text className='op-info-icon'>🟢</Text>
+                                                            <View className='op-info-content'>
+                                                                <Text className='op-info-label'>取件/服务地址</Text>
+                                                                <Text className='op-info-value'>{msg.orderPreview.from}</Text>
+                                                            </View>
                                                         </View>
                                                     )}
                                                     {msg.orderPreview.to && (
-                                                        <View className='op-row'>
-                                                            <Text className='op-label'>送达</Text>
-                                                            <Text className='op-value'>{msg.orderPreview.to}</Text>
+                                                        <View className='op-info-row'>
+                                                            <Text className='op-info-icon'>🟠</Text>
+                                                            <View className='op-info-content'>
+                                                                <Text className='op-info-label'>送达地址</Text>
+                                                                <Text className='op-info-value'>{msg.orderPreview.to}</Text>
+                                                            </View>
                                                         </View>
                                                     )}
                                                 </View>
-                                                <View className='op-divider' />
-                                                <View className='op-field'>
-                                                    <Text className='op-field-label'>花费预算</Text>
-                                                    <View className='op-input-wrap'>
-                                                        <Text className='op-prefix'>S$</Text>
-                                                        <Input className='op-input' type='digit' placeholder='0.00' placeholderClass='fc-placeholder' value={prevBudget} onInput={(e) => setPrevBudget(e.detail.value)} />
+
+                                                {/* Pricing Fields */}
+                                                <View className='op-pricing'>
+                                                    <Text className='op-pricing-title'>💰 费用明细</Text>
+                                                    <View className='op-field'>
+                                                        <Text className='op-field-label'>花费预算</Text>
+                                                        <View className='op-input-wrap'>
+                                                            <Text className='op-prefix'>S$</Text>
+                                                            <Input className='op-input' type='digit' placeholder='0.00' placeholderClass='fc-placeholder' value={prevBudget} onInput={(e) => setPrevBudget(e.detail.value)} />
+                                                        </View>
+                                                    </View>
+                                                    <View className='op-field'>
+                                                        <Text className='op-field-label'>{chatType === 'errand' ? '跑腿费' : '上门费'}</Text>
+                                                        <View className='op-input-wrap'>
+                                                            <Text className='op-prefix'>S$</Text>
+                                                            <Input className='op-input' type='digit' placeholder='0.00' placeholderClass='fc-placeholder' value={prevFee} onInput={(e) => setPrevFee(e.detail.value)} />
+                                                        </View>
+                                                    </View>
+                                                    <View className='op-auto-fee'>
+                                                        <Text className='op-auto-label'>平台服务费（3.3%，最低S$2）</Text>
+                                                        <Text className='op-auto-value'>S${prevPlatformFee.toFixed(2)}</Text>
                                                     </View>
                                                 </View>
-                                                <View className='op-field'>
-                                                    <Text className='op-field-label'>{chatType === 'errand' ? '跑腿费' : '上门费'}</Text>
-                                                    <View className='op-input-wrap'>
-                                                        <Text className='op-prefix'>S$</Text>
-                                                        <Input className='op-input' type='digit' placeholder='0.00' placeholderClass='fc-placeholder' value={prevFee} onInput={(e) => setPrevFee(e.detail.value)} />
-                                                    </View>
-                                                </View>
-                                                <View className='op-auto-fee'>
-                                                    <Text className='op-auto-label'>平台服务费（3.3%，最低S$2）</Text>
-                                                    <Text className='op-auto-value'>S${prevPlatformFee.toFixed(2)}</Text>
-                                                </View>
+
+                                                {/* Tip */}
                                                 <View className='op-tip-section'>
                                                     <Text className='op-tip-label'>🎁 小费（可选）</Text>
                                                     <View className='op-tip-options'>
@@ -477,11 +506,14 @@ export default function Errand() {
                                                     </View>
                                                     <Text className='op-tip-hint'>小费100%给到骑手，超时则返回钱包</Text>
                                                 </View>
-                                                <View className='op-divider' />
-                                                <View className='op-total-row'>
+
+                                                {/* Total */}
+                                                <View className='op-total-bar'>
                                                     <Text className='op-total-label'>合计</Text>
                                                     <Text className='op-total-value'>S${prevTotal.toFixed(2)}</Text>
                                                 </View>
+
+                                                {/* Pay Btn */}
                                                 <View className='op-pay-btn' onClick={() => {
                                                     if (prevBudgetNum <= 0 && prevFeeNum <= 0) {
                                                         Taro.showToast({ title: '请填写预算或费用', icon: 'none' }); return
@@ -493,6 +525,31 @@ export default function Errand() {
                                                         confirmColor: '#6B2FE0',
                                                         success: (res) => {
                                                             if (res.confirm) {
+                                                                const orderId = generateOrderId()
+                                                                const order: Order = {
+                                                                    id: orderId,
+                                                                    service: msg.orderPreview!.service,
+                                                                    from: msg.orderPreview!.from,
+                                                                    to: msg.orderPreview!.to,
+                                                                    budget: prevBudgetNum,
+                                                                    fee: prevFeeNum,
+                                                                    platformFee: prevPlatformFee,
+                                                                    tip: prevTip,
+                                                                    total: prevTotal,
+                                                                    type: chatType === 'errand' ? 'errand' : 'onsite',
+                                                                    status: 'pending',
+                                                                    statusText: '已提交，等待接单',
+                                                                    icon: chatType === 'errand' ? '🛒' : '🏠',
+                                                                    createdAt: new Date().toISOString(),
+                                                                }
+                                                                saveOrder(order)
+                                                                // Replace preview with tracking card
+                                                                setMessages(prev => [...prev, {
+                                                                    role: 'ai',
+                                                                    content: `✅ 下单成功！\n\n订单号：${orderId}\n状态：已提交，等待骑手接单\n\n你可以在“订单列表”中查看详情，也可以在首页看到进行中的任务。`,
+                                                                    time: getNow(),
+                                                                    chips: ['查看订单', '返回首页'],
+                                                                }])
                                                                 Taro.showToast({ title: '下单成功！', icon: 'success' })
                                                             }
                                                         },
