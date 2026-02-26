@@ -24,11 +24,37 @@ function getNow() {
     return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 }
 
+const PROMPT_POOL = [
+    // 跑腿代买
+    { text: '帮我去NTUC买2瓶牛奶送到家', icon: '🛒', label: '跑腿代买' },
+    { text: '帮我买一杯益昌老街珍珠奶茶', icon: '🧋', label: '跑腿代买' },
+    { text: '帮我去邮局寄一个包裹', icon: '📮', label: '跑腿代办' },
+    { text: '帮我去药房买感冒药', icon: '💊', label: '跑腿代买' },
+    { text: '帮我取一份文件从公司送到家', icon: '📋', label: '跑腿代取' },
+    { text: '帮我排队买网红蛋糕', icon: '🎂', label: '跑腿排队' },
+    // 上门服务
+    { text: '预约明天下午上门清洁3房1厅', icon: '🧹', label: '上门服务' },
+    { text: '家里水龙头漏水，需要上门维修', icon: '🔧', label: '上门维修' },
+    { text: '需要搬家服务，从Clementi到Jurong', icon: '📦', label: '搬家服务' },
+    { text: '预约上门宠物美容和洗澡', icon: '🐾', label: '宠物服务' },
+    { text: '需要月嫂阿姨上门照顾宝宝', icon: '👶', label: '育儿陪护' },
+    { text: '预约上门美甲和美睫服务', icon: '💅', label: '美容服务' },
+    // 自取优惠
+    { text: '附近有什么自取优惠的午餐？', icon: '🍜', label: '自取优惠' },
+    { text: '想喝咖啡，附近有优惠吗？', icon: '☕', label: '自取优惠' },
+]
+
+function pickRandomPrompts(count: number) {
+    const shuffled = [...PROMPT_POOL].sort(() => Math.random() - 0.5)
+    return shuffled.slice(0, count)
+}
+
 export default function AIAssistant() {
     const [chatInput, setChatInput] = useState('')
     const [isStreaming, setIsStreaming] = useState(false)
     const conversationIdRef = useRef<string | null>(null)
     const [messages, setMessages] = useState<ChatMsg[]>([])
+    const [prompts, setPrompts] = useState(() => pickRandomPrompts(3))
 
     const isChatting = messages.length > 0; // if we have messages, switch to chat mode
 
@@ -103,12 +129,16 @@ export default function AIAssistant() {
         setChatInput('')
     }
 
+    const shufflePrompts = () => {
+        setPrompts(pickRandomPrompts(3))
+    }
+
     return (
         <View className='ai-page'>
             {/* Minimal Header */}
             <View className='minimal-header'>
                 <Text className='header-title'>12Tree AI</Text>
-                <View className='header-refresh' onClick={resetChat}>
+                <View className='header-refresh' onClick={isChatting ? resetChat : shufflePrompts}>
                     换一换 <Text className='refresh-icon'>↻</Text>
                 </View>
             </View>
@@ -136,24 +166,14 @@ export default function AIAssistant() {
 
                     {/* Floating Suggestion Cards */}
                     <View className='float-cards-container'>
-                        <View className='float-card card-1'>
-                            <Text className='fc-title'>帮我去NTUC买2瓶牛奶送到家</Text>
-                            <View className='try-btn' onClick={() => handleSend('帮我去NTUC买2瓶牛奶送到家')}>
-                                <Text className='try-icon'>🛒</Text> 跑腿代买
+                        {prompts.map((p, i) => (
+                            <View className={`float-card card-${i + 1}`} key={p.text}>
+                                <Text className='fc-title'>{p.text}</Text>
+                                <View className='try-btn' onClick={() => handleSend(p.text)}>
+                                    <Text className='try-icon'>{p.icon}</Text> {p.label}
+                                </View>
                             </View>
-                        </View>
-                        <View className='float-card card-2'>
-                            <Text className='fc-title'>预约明天下午上门清洁3房1厅</Text>
-                            <View className='try-btn' onClick={() => handleSend('预约明天下午上门清洁3房1厅')}>
-                                <Text className='try-icon'>🏠</Text> 上门服务
-                            </View>
-                        </View>
-                        <View className='float-card card-3'>
-                            <Text className='fc-title'>附近有什么自取优惠的午餐？</Text>
-                            <View className='try-btn' onClick={() => handleSend('附近有什么自取优惠的午餐？')}>
-                                <Text className='try-icon'>🍜</Text> 自取优惠
-                            </View>
-                        </View>
+                        ))}
                     </View>
                 </View>
             ) : (
