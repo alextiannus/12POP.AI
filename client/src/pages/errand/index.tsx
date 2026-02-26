@@ -293,7 +293,7 @@ export default function Errand() {
                         {/* Tip */}
                         <View className='tip-section'>
                             <Text className='tip-title'>🎁 小费（可选）</Text>
-                            <Text className='tip-hint'>加小费有助于更快接单</Text>
+                            <Text className='tip-hint'>小费100%给到骑手，超时则返回到钱包可供下次使用</Text>
                             <View className='tip-options'>
                                 {TIP_OPTIONS.map(t => (
                                     <View
