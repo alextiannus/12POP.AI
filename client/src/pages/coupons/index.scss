@@ -1,12 +1,13 @@
-$v2: #6B2FE0;
-$v3: #9B62FF;
-$red: #FF3C78;
-$t0: #180E04;
-$t2: #8A7060;
-$t3: #B5A090;
-$bg: #F8F6F3;
+$orange: #FF6B00;
+$orange-light: #FFA940;
+$orange-bg: #FFF8F0;
+$green: #00B578;
+$t0: #1A1A1A;
+$t2: #666;
+$t3: #999;
+$bg: #F5F5F5;
 
-.deals-page {
+.tg-page {
     min-height: 100vh;
     background: $bg;
     display: flex;
@@ -14,9 +15,8 @@ $bg: #F8F6F3;
 }
 
 // ── Header ──
-.deals-header {
-    background: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+.tg-header {
+    background: linear-gradient(180deg, $orange, $orange-light);
     z-index: 10;
 }
 
@@ -24,259 +24,202 @@ $bg: #F8F6F3;
     height: 88px;
 }
 
-.deals-header-row {
+.tg-header-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 16px 14px;
 }
 
-.back-btn {
-    width: 56px;
-    height: 56px;
+.tg-back {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background: $bg;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.back-arrow {
-    font-size: 28px;
-    font-weight: 700;
-    color: $t0;
+.tg-back-icon {
+    font-size: 36px;
+    font-weight: 300;
+    color: #fff;
 }
 
-.deals-title {
+.tg-header-title {
     font-size: 28px;
     font-weight: 800;
-    color: $t0;
-}
-
-.deals-loc {
-    display: flex;
-    align-items: center;
-}
-
-.deals-loc-text {
-    font-size: 18px;
-    font-weight: 600;
-    color: $v2;
-}
-
-// ── Body ──
-.deals-body {
-    flex: 1;
-    padding: 0 16px;
-}
-
-// ── Hero Banner ──
-.hero-banner {
-    border-radius: 24px;
-    padding: 28px 24px 20px;
-    margin: 12px 0;
-    position: relative;
-    overflow: hidden;
-    min-height: 120px;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 1;
-}
-
-.hero-title {
-    font-size: 32px;
-    font-weight: 900;
     color: #fff;
-    display: block;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-.hero-sub {
+// ── Search ──
+.tg-search {
+    display: flex;
+    align-items: center;
+    margin: 12px 16px;
+    background: #fff;
+    border-radius: 24px;
+    padding: 0 6px 0 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.tg-search-icon {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+.tg-search-input {
+    flex: 1;
     font-size: 22px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.9);
-    display: block;
-    margin-top: 6px;
+    color: $t0;
+    padding: 12px 0;
 }
 
-.hero-dots {
-    display: flex;
-    gap: 6px;
-    position: absolute;
-    bottom: 14px;
-    right: 20px;
-}
-
-.hero-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-}
-
-.hero-dot-active {
-    background: #fff;
-    width: 20px;
-    border-radius: 4px;
-}
-
-// ── Stats Bar ──
-.stats-bar {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    border-radius: 20px;
-    padding: 16px 0;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-.stat-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-}
-
-.stat-num {
-    font-size: 28px;
-    font-weight: 900;
-    color: $red;
-}
-
-.stat-label {
-    font-size: 17px;
+.tg-search-ph {
     color: $t3;
-    font-weight: 500;
 }
 
-.stat-divider {
-    width: 1px;
-    height: 36px;
-    background: rgba(0, 0, 0, 0.06);
+.tg-search-btn {
+    color: $orange;
+    font-size: 22px;
+    font-weight: 700;
+    padding: 12px 14px;
 }
 
-// ── Category Bar ──
-.cat-bar {
+// ── Categories ──
+.tg-cats {
     display: flex;
-    gap: 8px;
-    margin-bottom: 16px;
+    padding: 8px 16px 16px;
+    white-space: nowrap;
 }
 
-.cat-pill {
-    flex: 1;
-    display: flex;
+.tg-cat {
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    padding: 10px 0;
-    border-radius: 16px;
+    gap: 6px;
+    margin-right: 20px;
+    flex-shrink: 0;
+    min-width: 72px;
+}
+
+.tg-cat-icon-wrap {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
     background: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
     transition: all 0.2s;
 }
 
-.cat-pill-active {
-    background: $v2;
-    box-shadow: 0 4px 12px rgba(107, 47, 224, 0.3);
+.tg-cat-icon-active {
+    background: $orange;
+    box-shadow: 0 3px 12px rgba(255, 107, 0, 0.35);
+}
 
-    .cat-label {
-        color: #fff;
+.tg-cat-icon {
+    font-size: 28px;
+}
+
+.tg-cat-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: $t2;
+    text-align: center;
+    line-height: 1.2;
+    white-space: pre-line;
+}
+
+.tg-cat-label-active {
+    color: $orange;
+    font-weight: 700;
+}
+
+// ── Sort ──
+.tg-sort-bar {
+    padding: 10px 20px;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.tg-sort-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: $orange;
+}
+
+.tg-sort-dropdown {
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    padding: 0 20px;
+}
+
+.tg-sort-item {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.tg-sort-item-active {
+    .tg-sort-item-text {
+        color: $orange;
+        font-weight: 700;
     }
 }
 
-.cat-icon {
-    font-size: 24px;
-}
-
-.cat-label {
-    font-size: 18px;
-    font-weight: 700;
+.tg-sort-item-text {
+    font-size: 20px;
     color: $t2;
-    transition: color 0.2s;
-}
-
-.cat-label-active {
-    color: #fff;
 }
 
 // ── Deal Cards ──
-.deal-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.tg-deals {
+    background: #fff;
 }
 
-.deal-card {
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+.tg-deal {
     display: flex;
-    transition: transform 0.2s;
+    padding: 16px 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    gap: 14px;
 
     &:active {
-        transform: scale(0.99);
+        background: rgba(0, 0, 0, 0.02);
     }
 }
 
 // ── Deal Image ──
-.deal-img {
-    width: 180px;
-    min-height: 176px;
-    flex-shrink: 0;
-    position: relative;
+.tg-deal-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-.deal-disc-badge {
-    align-self: flex-start;
-    background: $red;
-    border-radius: 10px;
-    padding: 4px 12px;
-    box-shadow: 0 2px 8px rgba(255, 60, 120, 0.4);
-}
-
-.deal-disc-text {
-    font-size: 20px;
-    font-weight: 900;
-    color: #fff;
-}
-
-.deal-dist-badge {
-    align-self: flex-end;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(8px);
-    border-radius: 8px;
-    padding: 3px 10px;
-}
-
-.deal-dist-text {
-    font-size: 16px;
-    color: #fff;
-    font-weight: 600;
+.tg-deal-emoji {
+    font-size: 56px;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.15));
 }
 
 // ── Deal Info ──
-.deal-info {
+.tg-deal-info {
     flex: 1;
-    padding: 14px 16px;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
-.deal-name {
-    font-size: 24px;
-    font-weight: 800;
+.tg-deal-title {
+    font-size: 22px;
+    font-weight: 700;
     color: $t0;
-    display: block;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -284,114 +227,139 @@ $bg: #F8F6F3;
     line-height: 1.3;
 }
 
-.deal-shop-row {
+.tg-deal-sub {
+    font-size: 17px;
+    color: $t3;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tg-deal-meta {
     display: flex;
     align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+    overflow: hidden;
+}
+
+.tg-deal-rating {
+    font-size: 17px;
+    color: $t2;
+    flex-shrink: 0;
+}
+
+.tg-deal-sep {
+    font-size: 14px;
+    color: #ddd;
+}
+
+.tg-deal-shop {
+    font-size: 17px;
+    color: $t3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tg-deal-dist {
+    font-size: 17px;
+    color: $t3;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+.tg-deal-sold {
+    font-size: 16px;
+    color: $t3;
+    margin-top: 2px;
+    text-align: right;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+// ── Price Row ──
+.tg-deal-price-row {
+    display: flex;
+    align-items: flex-end;
     justify-content: space-between;
     margin-top: 6px;
 }
 
-.deal-shop {
-    font-size: 18px;
-    color: $t2;
-    font-weight: 600;
-}
-
-.deal-rating {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-}
-
-.deal-rating-star {
-    font-size: 14px;
-}
-
-.deal-rating-num {
-    font-size: 18px;
-    font-weight: 700;
-    color: #F59E0B;
-}
-
-// ── Tags ──
-.deal-tags {
-    display: flex;
-    gap: 6px;
-    margin-top: 8px;
-    flex-wrap: wrap;
-}
-
-.deal-tag {
-    background: rgba(107, 47, 224, 0.08);
-    border-radius: 6px;
-    padding: 2px 8px;
-}
-
-.deal-tag-text {
-    font-size: 16px;
-    font-weight: 600;
-    color: $v2;
-}
-
-// ── Bottom Price Row ──
-.deal-bottom {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-top: 10px;
-}
-
-.deal-price-area {
+.tg-price-left {
     display: flex;
     align-items: baseline;
     gap: 2px;
 }
 
-.deal-currency {
+.tg-price-dollar {
     font-size: 18px;
-    font-weight: 700;
-    color: $red;
+    font-weight: 800;
+    color: $green;
 }
 
-.deal-price {
-    font-size: 32px;
+.tg-price-num {
+    font-size: 34px;
     font-weight: 900;
-    color: $red;
+    color: $green;
     line-height: 1;
 }
 
-.deal-orig {
-    font-size: 18px;
+.tg-disc-badge {
+    background: $orange;
+    border-radius: 6px;
+    padding: 2px 8px;
+    margin-left: 6px;
+}
+
+.tg-disc-text {
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+}
+
+.tg-price-orig {
+    font-size: 17px;
     color: $t3;
     text-decoration: line-through;
     margin-left: 6px;
 }
 
-.deal-sold-area {
-    display: flex;
-    align-items: center;
+// ── Label ──
+.tg-deal-label {
+    margin-left: 4px;
 }
 
-.deal-sold {
+.tg-deal-label-text {
     font-size: 16px;
-    color: $t3;
+    color: $orange;
+    font-weight: 600;
+    border: 1.5px solid $orange;
+    border-radius: 6px;
+    padding: 1px 6px;
 }
 
 // ── Grab Button ──
-.deal-grab-btn {
-    background: linear-gradient(135deg, #FF6B35, $red);
-    border-radius: 20px;
-    padding: 8px 20px;
-    box-shadow: 0 3px 12px rgba(255, 60, 120, 0.35);
-    transition: transform 0.2s;
+.tg-grab {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, $orange, #FF4500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px rgba(255, 107, 0, 0.4);
+    flex-shrink: 0;
 
     &:active {
-        transform: scale(0.95);
+        transform: scale(0.92);
     }
 }
 
-.deal-grab-text {
-    font-size: 20px;
-    font-weight: 800;
+.tg-grab-text {
+    font-size: 26px;
+    font-weight: 900;
     color: #fff;
 }
