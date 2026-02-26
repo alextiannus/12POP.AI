@@ -1,5 +1,5 @@
 import { View, Text, Input, Textarea, ScrollView } from '@tarojs/components'
-import Taro from '@tarojs/taro'
+import Taro, { useRouter } from '@tarojs/taro'
 import { useState, useRef, useCallback } from 'react'
 import * as api from '../../services/api'
 import './index.scss'
@@ -30,7 +30,8 @@ const SERVICE_TYPES = [
 ]
 
 export default function LocalService() {
-    const [mode, setMode] = useState<'form' | 'chat'>('form')
+    const router = useRouter()
+    const [mode, setMode] = useState<'form' | 'chat'>((router.params?.mode as any) === 'chat' ? 'chat' : 'form')
 
     // Form
     const [taskDesc, setTaskDesc] = useState('')

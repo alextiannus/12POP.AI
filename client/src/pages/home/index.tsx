@@ -11,7 +11,7 @@ export default function Home() {
         Taro.navigateTo({ url: '/pages/errand/index' })
     }
 
-    const goToHomeService = () => Taro.navigateTo({ url: '/pages/localService/index' })
+    const goToHomeService = () => Taro.navigateTo({ url: '/pages/localService/index?mode=chat' })
 
     const handleAISubmit = () => {
         if (inputValue.trim()) {
