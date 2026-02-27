@@ -103,11 +103,7 @@ export default function Home() {
                     <View className='svc-wide' onClick={() => goToErrand(0)}>
                         <View className='svc-wide-icon-wrap'>
                             <View className='svc-wide-icon-box'>
-                                <View className='svc-box-icon'>
-                                    <View className='box-body' />
-                                    <View className='box-lid' />
-                                    <View className='box-tape' />
-                                </View>
+                                <View className='svc-wide-svg' />
                             </View>
                         </View>
                         <View className='svc-wide-main'>
@@ -125,24 +121,12 @@ export default function Home() {
                     {/* Two small cards */}
                     <View className='svc-row'>
                         <View className='svc-card' onClick={goToHomeService}>
-                            <View className='svc-line-icon'>
-                                <View className='icon-house'>
-                                    <View className='house-roof' />
-                                    <View className='house-body' />
-                                    <View className='house-door' />
-                                </View>
-                            </View>
+                            <View className='svc-svg-icon svc-svg-house' />
                             <Text className='svc-name'>上门服务</Text>
                             <Text className='svc-desc'>清洁维修 到家安装</Text>
                         </View>
                         <View className='svc-card' onClick={() => Taro.navigateTo({ url: '/pages/coupons/index' })}>
-                            <View className='svc-line-icon'>
-                                <View className='icon-shop'>
-                                    <View className='shop-roof' />
-                                    <View className='shop-body' />
-                                    <View className='shop-awning' />
-                                </View>
-                            </View>
+                            <View className='svc-svg-icon svc-svg-shop' />
                             <Text className='svc-name'>自取优惠</Text>
                             <Text className='svc-desc'>附近折扣 到店自取</Text>
                         </View>

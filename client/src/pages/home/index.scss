@@ -204,9 +204,9 @@ $bg: #F8F6F3;
     gap: 16px;
     background: #fff;
     border-radius: 22px;
-    padding: 18px 20px;
-    box-shadow: 0 4px 16px rgba(107, 47, 224, 0.08);
+    padding: 20px;
     margin-bottom: 12px;
+    box-shadow: 0 4px 16px rgba(107, 47, 224, 0.08);
     position: relative;
 
     &:active {
@@ -221,7 +221,7 @@ $bg: #F8F6F3;
 .svc-wide-icon-box {
     width: 72px;
     height: 72px;
-    border-radius: 22px;
+    border-radius: 20px;
     background: linear-gradient(135deg, #FF8C42, #FF5E5B);
     display: flex;
     align-items: center;
@@ -229,44 +229,14 @@ $bg: #F8F6F3;
     box-shadow: 0 6px 20px rgba(255, 94, 91, 0.35);
 }
 
-// CSS Package Icon
-.svc-box-icon {
-    position: relative;
-    width: 34px;
-    height: 34px;
-}
-
-.box-body {
-    position: absolute;
-    bottom: 0;
-    left: 2px;
-    right: 2px;
-    height: 22px;
-    border: 2.5px solid #fff;
-    border-radius: 3px;
-    background: transparent;
-}
-
-.box-lid {
-    position: absolute;
-    top: 4px;
-    left: 0;
-    right: 0;
-    height: 10px;
-    border: 2.5px solid #fff;
-    border-radius: 3px 3px 0 0;
-    background: transparent;
-}
-
-.box-tape {
-    position: absolute;
-    top: 4px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8px;
-    height: 30px;
-    border-left: 2.5px solid #fff;
-    border-right: 2.5px solid #fff;
+.svc-wide-svg {
+    width: 36px;
+    height: 36px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    // Package/box SVG icon in white
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/%3E%3Cpolyline points='3.27 6.96 12 12.01 20.73 6.96'/%3E%3Cline x1='12' y1='22.08' x2='12' y2='12'/%3E%3C/svg%3E");
 }
 
 .svc-wide-main {
@@ -281,35 +251,35 @@ $bg: #F8F6F3;
 }
 
 .svc-wide-sub {
-    font-size: 18px;
+    font-size: 17px;
     color: $t3;
     display: block;
-    margin: 2px 0 8px;
+    margin: 4px 0 10px;
 }
 
 .svc-wide-pills {
     display: flex;
-    gap: 6px;
+    gap: 8px;
 }
 
 .pill {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
     color: $v2;
     background: rgba(107, 47, 224, 0.08);
-    padding: 4px 12px;
+    padding: 5px 14px;
     border-radius: 8px;
 }
 
 .svc-wide-badge {
     position: absolute;
-    top: 12px;
+    top: 14px;
     right: 16px;
     background: linear-gradient(135deg, #FF8C42, #FF5E5B);
     color: #fff;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 700;
-    padding: 4px 14px;
+    padding: 4px 16px;
     border-radius: 20px;
 }
 
@@ -323,7 +293,7 @@ $bg: #F8F6F3;
 .svc-card {
     background: #fff;
     border-radius: 22px;
-    padding: 20px;
+    padding: 22px 20px;
     box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
 
     &:active {
@@ -331,101 +301,23 @@ $bg: #F8F6F3;
     }
 }
 
-// CSS Line Icons
-.svc-line-icon {
-    width: 48px;
-    height: 48px;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.svc-svg-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 14px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-// House icon
-.icon-house {
-    position: relative;
-    width: 36px;
-    height: 36px;
+// House outline SVG (matches reference 上门服务)
+.svc-svg-house {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A7060' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpolyline points='9 22 9 12 15 12 15 22'/%3E%3C/svg%3E");
 }
 
-.house-roof {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 20px solid transparent;
-    border-right: 20px solid transparent;
-    border-bottom: 14px solid $t2;
-}
-
-.house-body {
-    position: absolute;
-    bottom: 0;
-    left: 4px;
-    right: 4px;
-    height: 20px;
-    border: 2.5px solid $t2;
-    border-top: none;
-    border-radius: 0 0 3px 3px;
-    background: transparent;
-}
-
-.house-door {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 10px;
-    height: 13px;
-    border: 2px solid $t2;
-    border-bottom: none;
-    border-radius: 5px 5px 0 0;
-    background: transparent;
-}
-
-// Shop icon
-.icon-shop {
-    position: relative;
-    width: 36px;
-    height: 36px;
-}
-
-.shop-roof {
-    position: absolute;
-    top: 0;
-    left: 2px;
-    right: 2px;
-    height: 12px;
-    border: 2.5px solid $t2;
-    border-radius: 3px 3px 0 0;
-    background: transparent;
-}
-
-.shop-awning {
-    position: absolute;
-    top: 12px;
-    left: 0;
-    right: 0;
-    height: 8px;
-    display: flex;
-    border-bottom: 2.5px solid $t2;
-    background: repeating-linear-gradient(90deg,
-            transparent 0px, transparent 8px,
-            $t2 8px, $t2 9px);
-}
-
-.shop-body {
-    position: absolute;
-    bottom: 0;
-    left: 2px;
-    right: 2px;
-    height: 14px;
-    border: 2.5px solid $t2;
-    border-top: none;
-    border-radius: 0 0 3px 3px;
-    background: transparent;
+// Shop outline SVG (matches reference 自取优惠)
+.svc-svg-shop {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A7060' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9l1-4h16l1 4'/%3E%3Cpath d='M3 9v11a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1V9'/%3E%3Cpath d='M9 21V13h6v8'/%3E%3Cpath d='M3 9c0 1.1.4 2 1.2 2.6'/%3E%3Cpath d='M7.5 11.6C8.3 11 8.7 10 8.7 9'/%3E%3Cpath d='M15.3 9c0 1 .4 2 1.2 2.6'/%3E%3Cpath d='M21 9c0 1.1-.4 2-1.2 2.6'/%3E%3C/svg%3E");
 }
 
 .svc-name {
@@ -437,226 +329,228 @@ $bg: #F8F6F3;
 }
 
 .svc-desc {
-    font-size: 18px;
+    font-size: 17px;
     color: $t3;
     line-height: 1.4;
-}
 
-// ── Quick Chips ──
-.quick-scroll {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-}
 
-.quick-chip {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #fff;
-    border-radius: 18px;
-    padding: 14px 18px;
-    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
-    flex-shrink: 0;
-}
 
-.qc-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-}
-
-.orange-qc {
-    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
-    box-shadow: 0 3px 12px rgba(255, 94, 91, 0.3);
-}
-
-.purple-qc {
-    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
-    box-shadow: 0 3px 12px rgba(124, 58, 237, 0.3);
-}
-
-.qc-emoji {
-    font-size: 22px;
-    filter: brightness(10);
-}
-
-.quick-name {
-    font-size: 22px;
-    font-weight: 700;
-    color: $t0;
-    display: block;
-    white-space: nowrap;
-}
-
-.quick-sub {
-    font-size: 18px;
-    color: $t3;
-    display: block;
-    white-space: nowrap;
-}
-
-// ── Active Order ──
-.active-order {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #fff;
-    border-radius: 16px;
-    padding: 14px 16px;
-    margin-bottom: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    border-left: 4px solid $v2;
-
-    &:active {
-        transform: scale(0.99);
-    }
-}
-
-.ao-icon-wrap {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #f3f0ff, #e8e0ff);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.ao-icon {
-    font-size: 26px;
-}
-
-.ao-info {
-    flex: 1;
-    min-width: 0;
-}
-
-.ao-name {
-    font-size: 22px;
-    font-weight: 700;
-    color: $t0;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.ao-meta {
-    font-size: 16px;
-    color: $t3;
-    display: block;
-    margin-top: 2px;
-}
-
-.ao-status-wrap {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-}
-
-.ao-status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #22C55E;
-    animation: pulse-dot 1.5s infinite;
-}
-
-.ao-status {
-    font-size: 16px;
-    font-weight: 600;
-    color: #22C55E;
-}
-
-@keyframes pulse-dot {
-
-    0%,
-    100% {
-        opacity: 1;
-        transform: scale(1);
+    // ── Quick Chips ──
+    .quick-scroll {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
     }
 
-    50% {
-        opacity: 0.5;
-        transform: scale(0.8);
+    .quick-chip {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #fff;
+        border-radius: 18px;
+        padding: 14px 18px;
+        box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
+        flex-shrink: 0;
     }
-}
 
-// ── Deals ──
-.deals-scroll {
-    display: flex;
-    gap: 12px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-}
+    .qc-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
 
-.deal-card {
-    width: 260px;
-    flex-shrink: 0;
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
-}
+    .orange-qc {
+        background: linear-gradient(135deg, #FF8C42, #FF5E5B);
+        box-shadow: 0 3px 12px rgba(255, 94, 91, 0.3);
+    }
 
-.deal-img {
-    height: 130px;
-    padding: 12px;
-    display: flex;
-    align-items: flex-end;
-    border-radius: 20px 20px 0 0;
-}
+    .purple-qc {
+        background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+        box-shadow: 0 3px 12px rgba(124, 58, 237, 0.3);
+    }
 
-.deal-badge {
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(8px);
-    color: #fff;
-    font-size: 20px;
-    font-weight: 800;
-    padding: 6px 14px;
-    border-radius: 10px;
-}
+    .qc-emoji {
+        font-size: 22px;
+        filter: brightness(10);
+    }
 
-.deal-body {
-    padding: 12px 14px 16px;
-}
+    .quick-name {
+        font-size: 22px;
+        font-weight: 700;
+        color: $t0;
+        display: block;
+        white-space: nowrap;
+    }
 
-.deal-name {
-    font-size: 24px;
-    font-weight: 700;
-    color: $t0;
-    display: block;
-    margin-bottom: 4px;
-}
+    .quick-sub {
+        font-size: 18px;
+        color: $t3;
+        display: block;
+        white-space: nowrap;
+    }
 
-.deal-prices {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 4px;
-}
+    // ── Active Order ──
+    .active-order {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #fff;
+        border-radius: 16px;
+        padding: 14px 16px;
+        margin-bottom: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border-left: 4px solid $v2;
 
-.deal-price {
-    font-size: 26px;
-    font-weight: 800;
-    color: $red;
-}
+        &:active {
+            transform: scale(0.99);
+        }
+    }
 
-.deal-orig {
-    font-size: 20px;
-    color: $t3;
-    text-decoration: line-through;
-}
+    .ao-icon-wrap {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #f3f0ff, #e8e0ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
 
-.deal-dist {
-    font-size: 18px;
-    color: $t3;
+    .ao-icon {
+        font-size: 26px;
+    }
+
+    .ao-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .ao-name {
+        font-size: 22px;
+        font-weight: 700;
+        color: $t0;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .ao-meta {
+        font-size: 16px;
+        color: $t3;
+        display: block;
+        margin-top: 2px;
+    }
+
+    .ao-status-wrap {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+
+    .ao-status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #22C55E;
+        animation: pulse-dot 1.5s infinite;
+    }
+
+    .ao-status {
+        font-size: 16px;
+        font-weight: 600;
+        color: #22C55E;
+    }
+
+    @keyframes pulse-dot {
+
+        0%,
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.5;
+            transform: scale(0.8);
+        }
+    }
+
+    // ── Deals ──
+    .deals-scroll {
+        display: flex;
+        gap: 12px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+    }
+
+    .deal-card {
+        width: 260px;
+        flex-shrink: 0;
+        background: #fff;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
+    }
+
+    .deal-img {
+        height: 130px;
+        padding: 12px;
+        display: flex;
+        align-items: flex-end;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .deal-badge {
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(8px);
+        color: #fff;
+        font-size: 20px;
+        font-weight: 800;
+        padding: 6px 14px;
+        border-radius: 10px;
+    }
+
+    .deal-body {
+        padding: 12px 14px 16px;
+    }
+
+    .deal-name {
+        font-size: 24px;
+        font-weight: 700;
+        color: $t0;
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .deal-prices {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 4px;
+    }
+
+    .deal-price {
+        font-size: 26px;
+        font-weight: 800;
+        color: $red;
+    }
+
+    .deal-orig {
+        font-size: 20px;
+        color: $t3;
+        text-decoration: line-through;
+    }
+
+    .deal-dist {
+        font-size: 18px;
+        color: $t3;
+    }
 }

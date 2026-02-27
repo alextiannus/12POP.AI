@@ -78,41 +78,25 @@ export default function Profile() {
                     <View className='quick-actions'>
                         <View className='action-item' onClick={() => nav('/pages/wallet/index')}>
                             <View className='action-icon-box action-green'>
-                                <View className='css-icon-wallet'>
-                                    <View className='wallet-body' />
-                                    <View className='wallet-flap' />
-                                    <View className='wallet-clasp' />
-                                </View>
+                                <View className='action-svg svg-wallet' />
                             </View>
                             <Text className='action-name'>充值</Text>
                         </View>
                         <View className='action-item' onClick={() => nav('/pages/coupons/index')}>
                             <View className='action-icon-box action-pink'>
-                                <View className='css-icon-gift'>
-                                    <View className='gift-box' />
-                                    <View className='gift-lid' />
-                                    <View className='gift-ribbon-v' />
-                                    <View className='gift-ribbon-h' />
-                                    <View className='gift-bow-l' />
-                                    <View className='gift-bow-r' />
-                                </View>
+                                <View className='action-svg svg-gift' />
                             </View>
                             <Text className='action-name'>优惠券</Text>
                         </View>
                         <View className='action-item'>
                             <View className='action-icon-box action-yellow'>
-                                <View className='css-icon-star'>
-                                    <View className='star-shape' />
-                                </View>
+                                <View className='action-svg svg-star' />
                             </View>
                             <Text className='action-name'>收藏</Text>
                         </View>
                         <View className='action-item'>
                             <View className='action-icon-box action-purple'>
-                                <View className='css-icon-mail'>
-                                    <View className='mail-body' />
-                                    <View className='mail-flap' />
-                                </View>
+                                <View className='action-svg svg-mail' />
                             </View>
                             <Text className='action-name'>邀请</Text>
                         </View>
@@ -128,15 +112,7 @@ export default function Profile() {
                     {recentOrders.map((order, i) => (
                         <View className='order-card' key={order.id || i} onClick={() => nav('/pages/orders/index')}>
                             <View className='order-icon-box'>
-                                {order.type === 'errand' ? (
-                                    <View className='order-css-icon'>
-                                        <View className='obox-body' /><View className='obox-lid' /><View className='obox-tape' />
-                                    </View>
-                                ) : (
-                                    <View className='order-css-icon'>
-                                        <View className='owrench-head' /><View className='owrench-handle' />
-                                    </View>
-                                )}
+                                <View className={`order-svg ${order.type === 'errand' ? 'order-svg-pkg' : 'order-svg-wrench'}`} />
                             </View>
                             <View className='order-info'>
                                 <Text className='order-name'>{order.service}</Text>
@@ -155,23 +131,17 @@ export default function Profile() {
                     <Text className='section-title'>设置</Text>
                     <View className='settings-list'>
                         <View className='setting-item' onClick={() => nav('/pages/address/index')}>
-                            <View className='setting-css-icon'>
-                                <View className='pin-head' /><View className='pin-point' />
-                            </View>
+                            <View className='setting-svg svg-pin' />
                             <Text className='setting-name'>地址管理</Text>
                             <Text className='chevron'>›</Text>
                         </View>
                         <View className='setting-item'>
-                            <View className='setting-css-icon'>
-                                <View className='card-body' /><View className='card-stripe' />
-                            </View>
+                            <View className='setting-svg svg-card' />
                             <Text className='setting-name'>支付设置</Text>
                             <Text className='chevron'>›</Text>
                         </View>
                         <View className='setting-item'>
-                            <View className='setting-css-icon'>
-                                <View className='bell-body' /><View className='bell-clapper' />
-                            </View>
+                            <View className='setting-svg svg-bell' />
                             <Text className='setting-name'>通知设置</Text>
                             <Text className='chevron'>›</Text>
                         </View>
