@@ -332,225 +332,223 @@ $bg: #F8F6F3;
     font-size: 17px;
     color: $t3;
     line-height: 1.4;
+}
 
+// ── Quick Chips ──
+.quick-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+}
 
+.quick-chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 14px 18px;
+    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
+    flex-shrink: 0;
+}
 
-    // ── Quick Chips ──
-    .quick-scroll {
-        display: flex;
-        gap: 12px;
-        overflow-x: auto;
+.qc-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.orange-qc {
+    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
+    box-shadow: 0 3px 12px rgba(255, 94, 91, 0.3);
+}
+
+.purple-qc {
+    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+    box-shadow: 0 3px 12px rgba(124, 58, 237, 0.3);
+}
+
+.qc-emoji {
+    font-size: 22px;
+    filter: brightness(10);
+}
+
+.quick-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    white-space: nowrap;
+}
+
+.quick-sub {
+    font-size: 18px;
+    color: $t3;
+    display: block;
+    white-space: nowrap;
+}
+
+// ── Active Order ──
+.active-order {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border-left: 4px solid $v2;
+
+    &:active {
+        transform: scale(0.99);
+    }
+}
+
+.ao-icon-wrap {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f3f0ff, #e8e0ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ao-icon {
+    font-size: 26px;
+}
+
+.ao-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.ao-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ao-meta {
+    font-size: 16px;
+    color: $t3;
+    display: block;
+    margin-top: 2px;
+}
+
+.ao-status-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.ao-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22C55E;
+    animation: pulse-dot 1.5s infinite;
+}
+
+.ao-status {
+    font-size: 16px;
+    font-weight: 600;
+    color: #22C55E;
+}
+
+@keyframes pulse-dot {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
 
-    .quick-chip {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        background: #fff;
-        border-radius: 18px;
-        padding: 14px 18px;
-        box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
-        flex-shrink: 0;
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
     }
+}
 
-    .qc-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    }
+// ── Deals ──
+.deals-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
 
-    .orange-qc {
-        background: linear-gradient(135deg, #FF8C42, #FF5E5B);
-        box-shadow: 0 3px 12px rgba(255, 94, 91, 0.3);
-    }
+.deal-card {
+    width: 260px;
+    flex-shrink: 0;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
+}
 
-    .purple-qc {
-        background: linear-gradient(135deg, #8B5CF6, #7C3AED);
-        box-shadow: 0 3px 12px rgba(124, 58, 237, 0.3);
-    }
+.deal-img {
+    height: 130px;
+    padding: 12px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 20px 20px 0 0;
+}
 
-    .qc-emoji {
-        font-size: 22px;
-        filter: brightness(10);
-    }
+.deal-badge {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 800;
+    padding: 6px 14px;
+    border-radius: 10px;
+}
 
-    .quick-name {
-        font-size: 22px;
-        font-weight: 700;
-        color: $t0;
-        display: block;
-        white-space: nowrap;
-    }
+.deal-body {
+    padding: 12px 14px 16px;
+}
 
-    .quick-sub {
-        font-size: 18px;
-        color: $t3;
-        display: block;
-        white-space: nowrap;
-    }
+.deal-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: $t0;
+    display: block;
+    margin-bottom: 4px;
+}
 
-    // ── Active Order ──
-    .active-order {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        background: #fff;
-        border-radius: 16px;
-        padding: 14px 16px;
-        margin-bottom: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        border-left: 4px solid $v2;
+.deal-prices {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
 
-        &:active {
-            transform: scale(0.99);
-        }
-    }
+.deal-price {
+    font-size: 26px;
+    font-weight: 800;
+    color: $red;
+}
 
-    .ao-icon-wrap {
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
-        background: linear-gradient(135deg, #f3f0ff, #e8e0ff);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
+.deal-orig {
+    font-size: 20px;
+    color: $t3;
+    text-decoration: line-through;
+}
 
-    .ao-icon {
-        font-size: 26px;
-    }
-
-    .ao-info {
-        flex: 1;
-        min-width: 0;
-    }
-
-    .ao-name {
-        font-size: 22px;
-        font-weight: 700;
-        color: $t0;
-        display: block;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    .ao-meta {
-        font-size: 16px;
-        color: $t3;
-        display: block;
-        margin-top: 2px;
-    }
-
-    .ao-status-wrap {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        flex-shrink: 0;
-    }
-
-    .ao-status-dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: #22C55E;
-        animation: pulse-dot 1.5s infinite;
-    }
-
-    .ao-status {
-        font-size: 16px;
-        font-weight: 600;
-        color: #22C55E;
-    }
-
-    @keyframes pulse-dot {
-
-        0%,
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        50% {
-            opacity: 0.5;
-            transform: scale(0.8);
-        }
-    }
-
-    // ── Deals ──
-    .deals-scroll {
-        display: flex;
-        gap: 12px;
-        overflow-x: auto;
-        padding-bottom: 4px;
-    }
-
-    .deal-card {
-        width: 260px;
-        flex-shrink: 0;
-        background: #fff;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
-    }
-
-    .deal-img {
-        height: 130px;
-        padding: 12px;
-        display: flex;
-        align-items: flex-end;
-        border-radius: 20px 20px 0 0;
-    }
-
-    .deal-badge {
-        background: rgba(0, 0, 0, 0.45);
-        backdrop-filter: blur(8px);
-        color: #fff;
-        font-size: 20px;
-        font-weight: 800;
-        padding: 6px 14px;
-        border-radius: 10px;
-    }
-
-    .deal-body {
-        padding: 12px 14px 16px;
-    }
-
-    .deal-name {
-        font-size: 24px;
-        font-weight: 700;
-        color: $t0;
-        display: block;
-        margin-bottom: 4px;
-    }
-
-    .deal-prices {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        margin-bottom: 4px;
-    }
-
-    .deal-price {
-        font-size: 26px;
-        font-weight: 800;
-        color: $red;
-    }
-
-    .deal-orig {
-        font-size: 20px;
-        color: $t3;
-        text-decoration: line-through;
-    }
-
-    .deal-dist {
-        font-size: 18px;
-        color: $t3;
-    }
+.deal-dist {
+    font-size: 18px;
+    color: $t3;
 }
