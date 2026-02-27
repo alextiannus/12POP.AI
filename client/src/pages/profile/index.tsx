@@ -78,78 +78,69 @@ export default function Profile() {
                     <View className='quick-actions'>
                         <View className='action-item' onClick={() => nav('/pages/wallet/index')}>
                             <View className='action-icon-box action-green'>
-                                <Text className='action-icon-text'>💰</Text>
+                                <View className='css-icon-wallet'>
+                                    <View className='wallet-body' />
+                                    <View className='wallet-flap' />
+                                    <View className='wallet-clasp' />
+                                </View>
                             </View>
                             <Text className='action-name'>充值</Text>
                         </View>
                         <View className='action-item' onClick={() => nav('/pages/coupons/index')}>
                             <View className='action-icon-box action-pink'>
-                                <Text className='action-icon-text'>🎁</Text>
+                                <View className='css-icon-gift'>
+                                    <View className='gift-box' />
+                                    <View className='gift-lid' />
+                                    <View className='gift-ribbon-v' />
+                                    <View className='gift-ribbon-h' />
+                                    <View className='gift-bow-l' />
+                                    <View className='gift-bow-r' />
+                                </View>
                             </View>
                             <Text className='action-name'>优惠券</Text>
                         </View>
                         <View className='action-item'>
                             <View className='action-icon-box action-yellow'>
-                                <Text className='action-icon-text'>⭐</Text>
+                                <View className='css-icon-star'>
+                                    <View className='star-shape' />
+                                </View>
                             </View>
                             <Text className='action-name'>收藏</Text>
                         </View>
                         <View className='action-item'>
                             <View className='action-icon-box action-purple'>
-                                <Text className='action-icon-text'>💌</Text>
+                                <View className='css-icon-mail'>
+                                    <View className='mail-body' />
+                                    <View className='mail-flap' />
+                                </View>
                             </View>
                             <Text className='action-name'>邀请</Text>
                         </View>
                     </View>
                 </View>
 
-                {/* Order Management Card */}
+                {/* Recent Orders */}
                 <View className='section'>
                     <View className='section-header'>
-                        <Text className='section-title'>订单管理</Text>
+                        <Text className='section-title'>最近订单</Text>
                         <Text className='section-more' onClick={() => nav('/pages/orders/index')}>查看全部 ›</Text>
                     </View>
-                    <View className='order-mgmt-card'>
-                        <View className='om-tabs'>
-                            <View className='om-tab' onClick={() => nav('/pages/orders/index')}>
-                                <View className='om-tab-icon om-icon-all'>
-                                    <Text className='om-tab-emoji'>📋</Text>
-                                </View>
-                                <Text className='om-tab-name'>全部订单</Text>
-                            </View>
-                            <View className='om-tab' onClick={() => nav('/pages/orders/index')}>
-                                <View className='om-tab-icon om-icon-pending'>
-                                    <Text className='om-tab-emoji'>📦</Text>
-                                </View>
-                                <Text className='om-tab-name'>进行中</Text>
-                                {recentOrders.some(o => o.status !== 'completed' && o.status !== 'cancelled') && (
-                                    <View className='om-badge' />
-                                )}
-                            </View>
-                            <View className='om-tab' onClick={() => nav('/pages/orders/index')}>
-                                <View className='om-tab-icon om-icon-done'>
-                                    <Text className='om-tab-emoji'>✅</Text>
-                                </View>
-                                <Text className='om-tab-name'>已完成</Text>
-                            </View>
-                            <View className='om-tab' onClick={() => nav('/pages/orders/index')}>
-                                <View className='om-tab-icon om-icon-refund'>
-                                    <Text className='om-tab-emoji'>💳</Text>
-                                </View>
-                                <Text className='om-tab-name'>退款/售后</Text>
-                            </View>
-                        </View>
-                    </View>
-
-                    {/* Recent Orders */}
-                    {recentOrders.length > 0 && recentOrders.map((order, i) => (
+                    {recentOrders.map((order, i) => (
                         <View className='order-card' key={order.id || i} onClick={() => nav('/pages/orders/index')}>
                             <View className='order-icon-box'>
-                                <Text className='order-icon'>{order.icon}</Text>
+                                {order.type === 'errand' ? (
+                                    <View className='order-css-icon'>
+                                        <View className='obox-body' /><View className='obox-lid' /><View className='obox-tape' />
+                                    </View>
+                                ) : (
+                                    <View className='order-css-icon'>
+                                        <View className='owrench-head' /><View className='owrench-handle' />
+                                    </View>
+                                )}
                             </View>
                             <View className='order-info'>
                                 <Text className='order-name'>{order.service}</Text>
-                                <Text className='order-time'>{order.id}</Text>
+                                <Text className='order-time'>{order.createdAt ? new Date(order.createdAt).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : ''}</Text>
                             </View>
                             <View className='order-right'>
                                 <Text className='order-amount'>S${order.total.toFixed(2)}</Text>
@@ -164,17 +155,23 @@ export default function Profile() {
                     <Text className='section-title'>设置</Text>
                     <View className='settings-list'>
                         <View className='setting-item' onClick={() => nav('/pages/address/index')}>
-                            <Text className='setting-icon'>⊙</Text>
+                            <View className='setting-css-icon'>
+                                <View className='pin-head' /><View className='pin-point' />
+                            </View>
                             <Text className='setting-name'>地址管理</Text>
                             <Text className='chevron'>›</Text>
                         </View>
                         <View className='setting-item'>
-                            <Text className='setting-icon'>⊟</Text>
+                            <View className='setting-css-icon'>
+                                <View className='card-body' /><View className='card-stripe' />
+                            </View>
                             <Text className='setting-name'>支付设置</Text>
                             <Text className='chevron'>›</Text>
                         </View>
                         <View className='setting-item'>
-                            <Text className='setting-icon'>🔔</Text>
+                            <View className='setting-css-icon'>
+                                <View className='bell-body' /><View className='bell-clapper' />
+                            </View>
                             <Text className='setting-name'>通知设置</Text>
                             <Text className='chevron'>›</Text>
                         </View>
