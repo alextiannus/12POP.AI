@@ -197,62 +197,249 @@ $bg: #F8F6F3;
     font-weight: 600;
 }
 
-// ── Service Grid (3 cards) ──
-.svc-grid {
+// ── Wide Service Card (Errand) ──
+.svc-wide {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #fff;
+    border-radius: 22px;
+    padding: 18px 20px;
+    box-shadow: 0 4px 16px rgba(107, 47, 224, 0.08);
+    margin-bottom: 12px;
+    position: relative;
+
+    &:active {
+        opacity: 0.92;
+    }
+}
+
+.svc-wide-icon-wrap {
+    flex-shrink: 0;
+}
+
+.svc-wide-icon-box {
+    width: 72px;
+    height: 72px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(255, 94, 91, 0.35);
+}
+
+// CSS Package Icon
+.svc-box-icon {
+    position: relative;
+    width: 34px;
+    height: 34px;
+}
+
+.box-body {
+    position: absolute;
+    bottom: 0;
+    left: 2px;
+    right: 2px;
+    height: 22px;
+    border: 2.5px solid #fff;
+    border-radius: 3px;
+    background: transparent;
+}
+
+.box-lid {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    right: 0;
+    height: 10px;
+    border: 2.5px solid #fff;
+    border-radius: 3px 3px 0 0;
+    background: transparent;
+}
+
+.box-tape {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px;
+    height: 30px;
+    border-left: 2.5px solid #fff;
+    border-right: 2.5px solid #fff;
+}
+
+.svc-wide-main {
+    flex: 1;
+}
+
+.svc-wide-name {
+    font-size: 28px;
+    font-weight: 800;
+    color: $t0;
+    display: block;
+}
+
+.svc-wide-sub {
+    font-size: 18px;
+    color: $t3;
+    display: block;
+    margin: 2px 0 8px;
+}
+
+.svc-wide-pills {
+    display: flex;
+    gap: 6px;
+}
+
+.pill {
+    font-size: 18px;
+    font-weight: 600;
+    color: $v2;
+    background: rgba(107, 47, 224, 0.08);
+    padding: 4px 12px;
+    border-radius: 8px;
+}
+
+.svc-wide-badge {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+}
+
+// ── Service Row (Two Cards) ──
+.svc-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
 }
 
 .svc-card {
     background: #fff;
     border-radius: 22px;
-    padding: 20px 8px 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 4px 16px rgba(60, 30, 10, 0.06);
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
 
     &:active {
-        transform: scale(0.96);
+        opacity: 0.9;
     }
 }
 
-.svc-icon-box {
-    width: 80px;
-    height: 80px;
-    border-radius: 24px;
+// CSS Line Icons
+.svc-line-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
 }
 
-.svc-orange {
-    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
-    box-shadow: 0 6px 20px rgba(255, 94, 91, 0.3);
+// House icon
+.icon-house {
+    position: relative;
+    width: 36px;
+    height: 36px;
 }
 
-.svc-teal {
-    background: linear-gradient(135deg, #5EEAD4, #14B8A6);
-    box-shadow: 0 6px 20px rgba(20, 184, 166, 0.3);
+.house-roof {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 14px solid $t2;
 }
 
-.svc-green {
-    background: linear-gradient(135deg, #6EE7B7, #10B981);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+.house-body {
+    position: absolute;
+    bottom: 0;
+    left: 4px;
+    right: 4px;
+    height: 20px;
+    border: 2.5px solid $t2;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    background: transparent;
 }
 
-.svc-emoji {
-    font-size: 40px;
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+.house-door {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 13px;
+    border: 2px solid $t2;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    background: transparent;
+}
+
+// Shop icon
+.icon-shop {
+    position: relative;
+    width: 36px;
+    height: 36px;
+}
+
+.shop-roof {
+    position: absolute;
+    top: 0;
+    left: 2px;
+    right: 2px;
+    height: 12px;
+    border: 2.5px solid $t2;
+    border-radius: 3px 3px 0 0;
+    background: transparent;
+}
+
+.shop-awning {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    right: 0;
+    height: 8px;
+    display: flex;
+    border-bottom: 2.5px solid $t2;
+    background: repeating-linear-gradient(90deg,
+            transparent 0px, transparent 8px,
+            $t2 8px, $t2 9px);
+}
+
+.shop-body {
+    position: absolute;
+    bottom: 0;
+    left: 2px;
+    right: 2px;
+    height: 14px;
+    border: 2.5px solid $t2;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    background: transparent;
 }
 
 .svc-name {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
     color: $t0;
-    text-align: center;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.svc-desc {
+    font-size: 18px;
+    color: $t3;
+    line-height: 1.4;
 }
 
 // ── Quick Chips ──
