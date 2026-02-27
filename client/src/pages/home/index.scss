@@ -197,139 +197,62 @@ $bg: #F8F6F3;
     font-weight: 600;
 }
 
-// ── Wide Service Card (Errand) ──
-.svc-wide {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    background: #fff;
-    border-radius: 22px;
-    padding: 18px 20px;
-    box-shadow: 0 4px 16px rgba(107, 47, 224, 0.08);
-    margin-bottom: 12px;
-    position: relative;
-}
-
-.svc-wide-icon-wrap {
-    flex-shrink: 0;
-}
-
-.svc-wide-icon-box {
-    width: 72px;
-    height: 72px;
-    border-radius: 22px;
-    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 20px rgba(255, 94, 91, 0.35);
-}
-
-.svc-wide-emoji {
-    font-size: 36px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
-}
-
-.svc-wide-main {
-    flex: 1;
-}
-
-.svc-wide-name {
-    font-size: 28px;
-    font-weight: 800;
-    color: $t0;
-    display: block;
-}
-
-.svc-wide-sub {
-    font-size: 18px;
-    color: $t3;
-    display: block;
-    margin: 2px 0 8px;
-}
-
-.svc-wide-pills {
-    display: flex;
-    gap: 6px;
-}
-
-.pill {
-    font-size: 18px;
-    font-weight: 600;
-    color: $v2;
-    background: rgba(107, 47, 224, 0.08);
-    padding: 4px 12px;
-    border-radius: 8px;
-}
-
-.svc-wide-badge {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    background: $red;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-    padding: 4px 14px;
-    border-radius: 20px;
-}
-
-// ── Service Row (Two Cards) ──
-.svc-row {
+// ── Service Grid (3 cards) ──
+.svc-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
 }
 
 .svc-card {
     background: #fff;
     border-radius: 22px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
+    padding: 20px 8px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 16px rgba(60, 30, 10, 0.06);
+
+    &:active {
+        transform: scale(0.96);
+    }
 }
 
-.svc-icon-circle {
-    width: 56px;
-    height: 56px;
-    border-radius: 18px;
+.svc-icon-box {
+    width: 80px;
+    height: 80px;
+    border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 12px;
-    transition: transform 0.2s ease;
+    margin-bottom: 10px;
 }
 
-.svc-card:active .svc-icon-circle {
-    transform: scale(1.08);
+.svc-orange {
+    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
+    box-shadow: 0 6px 20px rgba(255, 94, 91, 0.3);
 }
 
-.teal-bg {
+.svc-teal {
     background: linear-gradient(135deg, #5EEAD4, #14B8A6);
-    box-shadow: 0 4px 14px rgba(20, 184, 166, 0.3);
+    box-shadow: 0 6px 20px rgba(20, 184, 166, 0.3);
 }
 
-.green-bg {
+.svc-green {
     background: linear-gradient(135deg, #6EE7B7, #10B981);
-    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
 }
 
 .svc-emoji {
-    font-size: 28px;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    font-size: 40px;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
 }
 
 .svc-name {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     color: $t0;
-    display: block;
-    margin-bottom: 4px;
-}
-
-.svc-desc {
-    font-size: 18px;
-    color: $t3;
-    line-height: 1.4;
+    text-align: center;
 }
 
 // ── Quick Chips ──

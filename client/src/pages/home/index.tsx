@@ -99,40 +99,25 @@ export default function Home() {
                         <Text className='section-title'>选择服务</Text>
                     </View>
 
-                    {/* Errand Wide Card */}
-                    <View className='svc-wide' onClick={() => goToErrand(0)}>
-                        <View className='svc-wide-icon-wrap'>
-                            <View className='svc-wide-icon-box'>
-                                <Text className='svc-wide-emoji'>📦</Text>
+                    {/* 3 Service Cards */}
+                    <View className='svc-grid'>
+                        <View className='svc-card' onClick={() => goToErrand(0)}>
+                            <View className='svc-icon-box svc-orange'>
+                                <Text className='svc-emoji'>📦</Text>
                             </View>
+                            <Text className='svc-name'>跑腿</Text>
                         </View>
-                        <View className='svc-wide-main'>
-                            <Text className='svc-wide-name'>跑腿</Text>
-                            <Text className='svc-wide-sub'>同城取送 · 代买帮办 · 其他代办</Text>
-                            <View className='svc-wide-pills'>
-                                <Text className='pill' onClick={(e) => { e.stopPropagation(); goToErrand(0) }}>同城取送</Text>
-                                <Text className='pill' onClick={(e) => { e.stopPropagation(); goToErrand(1) }}>AI代买</Text>
-                                <Text className='pill' onClick={(e) => { e.stopPropagation(); goToErrand(2) }}>其他代办</Text>
-                            </View>
-                        </View>
-                        <View className='svc-wide-badge'>热门</View>
-                    </View>
-
-                    {/* Two small cards */}
-                    <View className='svc-row'>
                         <View className='svc-card' onClick={goToHomeService}>
-                            <View className='svc-icon-circle teal-bg'>
+                            <View className='svc-icon-box svc-teal'>
                                 <Text className='svc-emoji'>🏠</Text>
                             </View>
                             <Text className='svc-name'>上门服务</Text>
-                            <Text className='svc-desc'>清洁维修 到家安装</Text>
                         </View>
                         <View className='svc-card' onClick={() => Taro.navigateTo({ url: '/pages/coupons/index' })}>
-                            <View className='svc-icon-circle green-bg'>
+                            <View className='svc-icon-box svc-green'>
                                 <Text className='svc-emoji'>🏪</Text>
                             </View>
                             <Text className='svc-name'>自取优惠</Text>
-                            <Text className='svc-desc'>附近折扣 到店自取</Text>
                         </View>
                     </View>
                 </View>
