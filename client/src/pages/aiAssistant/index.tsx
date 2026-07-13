@@ -252,12 +252,12 @@ export default function AIAssistant() {
                         <Text className='doc-icon'>📝</Text>
                     </View>
                     <Input
-                        className='clean-input'
-                        placeholder='给 12Tree 发送您想问的问题'
-                        placeholderClass='clean-placeholder'
-                        value={chatInput}
-                        onInput={(e) => setChatInput(e.detail.value)}
-                        onConfirm={() => handleSend()}
+                      className='clean-input'
+                      placeholder='给 12Tree 发送您想问的问题'
+                      placeholderClass='clean-placeholder'
+                      value={chatInput}
+                      onInput={(e) => setChatInput(e.detail.value)}
+                      onConfirm={() => handleSend()}
                     />
                     {chatInput.trim() && (
                         <View className='send-icon-btn' onClick={() => handleSend()}>

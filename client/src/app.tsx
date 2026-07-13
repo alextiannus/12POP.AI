@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { useLaunch } from '@tarojs/taro'
-import CustomTabBar from './components/CustomTabBar'
+import CustomTabBar from './custom-tab-bar/index'
 
 import './app.scss'
 

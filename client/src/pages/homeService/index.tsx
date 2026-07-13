@@ -60,11 +60,11 @@ export default function HomeService() {
                 <View className='mp-search-bar'>
                     <Text className='mp-search-icon'>🔍</Text>
                     <Input
-                        className='mp-search-input'
-                        placeholder='搜索二手好物...'
-                        placeholderClass='mp-search-placeholder'
-                        value={searchText}
-                        onInput={(e) => setSearchText(e.detail.value)}
+                      className='mp-search-input'
+                      placeholder='搜索二手好物...'
+                      placeholderClass='mp-search-placeholder'
+                      value={searchText}
+                      onInput={(e) => setSearchText(e.detail.value)}
                     />
                 </View>
             </View>
@@ -74,9 +74,9 @@ export default function HomeService() {
                 <ScrollView scrollX className='cat-scroll'>
                     {CATEGORIES.map(cat => (
                         <View
-                            key={cat.key}
-                            className={`cat-chip ${activeCategory === cat.key ? 'cat-active' : ''}`}
-                            onClick={() => setActiveCategory(cat.key)}
+                          key={cat.key}
+                          className={`cat-chip ${activeCategory === cat.key ? 'cat-active' : ''}`}
+                          onClick={() => setActiveCategory(cat.key)}
                         >
                             <Text className='cat-chip-icon'>{cat.icon}</Text>
                             <Text className='cat-chip-label'>{cat.label}</Text>

@@ -4,11 +4,11 @@ $v2: #6B2FE0;
 $v3: #9B62FF;
 $red: #E03020;
 $t0: #180E04;
-$t2: #8A7060;
-$t3: #B5A090;
-$bg: #F6F2ED;
+$t2: #3C3C43; // iOS Native Text Secondary
+$t3: #8E8E93;
+$bg: #F2F2F7; // Unified iOS system background
 $ibg: #F0EBE3;
-$div: rgba(0, 0, 0, 0.07);
+$div: rgba(0, 0, 0, 0.05); // softer divider
 
 @mixin sub-page {
     min-height: 100vh;
@@ -18,8 +18,11 @@ $div: rgba(0, 0, 0, 0.07);
 }
 
 @mixin sub-header {
-    background: linear-gradient(155deg, #350E8C 0%, $v2 55%, $v3 100%);
-    padding: 0 40px 36px;
+    background: transparent;
+    padding: 60px 24px 20px;
+    margin-bottom: 0px; // no overlap
+    position: relative;
+    z-index: 10;
 
     .status-bar {
         height: 88px;
@@ -33,22 +36,23 @@ $div: rgba(0, 0, 0, 0.07);
 
     .back-btn {
         font-size: 54px;
-        color: #fff;
+        color: $t0;
         width: 56px;
         line-height: 1;
         font-weight: 300;
     }
 
     .sub-title {
-        font-size: 36px;
+        font-size: 34px; // iOS Large Title
         font-weight: 800;
-        color: #fff;
+        color: #000;
         flex: 1;
+        letter-spacing: -1px;
     }
 }
 
 @mixin card {
     background: #fff;
-    border-radius: 24px;
-    box-shadow: 0 2px 6px rgba(60, 30, 10, 0.05), 0 8px 24px rgba(60, 30, 10, 0.07);
+    border-radius: 20px;
+    box-shadow: none;
 }

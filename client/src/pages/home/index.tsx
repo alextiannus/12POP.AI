@@ -38,8 +38,6 @@ export default function Home() {
                     <View className='logo'>
                         <View className='logo-circle'>
                             <Text className='logo-12'>12</Text>
-                            <Text className='logo-pop-text'>POP</Text>
-                            <Text className='logo-bubble'>优惠泡泡</Text>
                         </View>
                         <View className='logo-text'>
                             <Text className='logo-name'>12POP</Text>
@@ -50,8 +48,8 @@ export default function Home() {
                     </View>
                 </View>
                 <View className='greeting'>
-                    <Text>早上好，Winston 👋</Text>
-                    <Text className='greeting-bold'>12POP，每天帮你解决一件生活小事</Text>
+                    <Text className='greeting-sub'>早上好，Winston 👋</Text>
+                    <Text className='greeting-bold'>每天帮你解决一件生活小事</Text>
                 </View>
                 <View className='ai-bar'>
                     <View className='ai-gem'>✨</View>
@@ -147,7 +145,7 @@ export default function Home() {
                             </View>
                             <View>
                                 <Text className='quick-name'>益昌老街奶茶</Text>
-                                <Text className='quick-sub'>今天 · 上次 S$5....</Text>
+                                <Text className='quick-sub'>今天 · 上次 S$5.00</Text>
                             </View>
                         </View>
                         <View className='quick-chip' onClick={() => goToErrand(0)}>

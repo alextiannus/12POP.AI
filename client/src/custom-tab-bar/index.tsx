@@ -1,7 +1,7 @@
 import { View, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useState, useEffect } from 'react'
-import './customTabBar.scss'
+import './index.scss'
 
 const TAB_PATHS = [
     'pages/home/index',

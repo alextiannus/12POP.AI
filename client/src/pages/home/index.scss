@@ -4,8 +4,8 @@ $v3: #9B62FF;
 $red: #E03020;
 $t0: #180E04;
 $t2: #8A7060;
-$t3: #B5A090;
-$bg: #F8F6F3;
+$t3: #8E8E93; // iOS standard secondary gray
+$bg: #F2F2F7; // iOS standard background
 
 .home {
     min-height: 100vh;
@@ -18,23 +18,13 @@ $bg: #F8F6F3;
     flex: 1;
 }
 
-// ── Header ──
+// ── True iOS Header (No background block, floats on canvas) ──
 .header {
-    background: linear-gradient(155deg, #350E8C 0%, $v2 55%, $v3 100%);
-    padding: 10px 24px 20px;
+    background: transparent;
+    padding: 60px 24px 20px;
+    margin-bottom: 0;
     position: relative;
-    overflow: hidden;
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: -100px;
-        right: -60px;
-        width: 360px;
-        height: 360px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.05);
-    }
+    z-index: 10;
 }
 
 .header-top {
@@ -52,36 +42,21 @@ $bg: #F8F6F3;
 
 // ── Circular Logo Badge ──
 .logo-circle {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #60A5FA, #3B82F6);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: $v2;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
     line-height: 1;
     flex-shrink: 0;
 }
 
 .logo-12 {
-    font-size: 16px;
-    font-weight: 900;
-    color: #fff;
-}
-
-.logo-pop-text {
-    font-size: 9px;
+    font-size: 20px;
     font-weight: 800;
-    color: rgba(255, 255, 255, 0.9);
-    letter-spacing: 1px;
-}
-
-.logo-bubble {
-    font-size: 8px;
-    color: rgba(255, 255, 255, 0.7);
-    margin-top: 1px;
+    color: #fff;
 }
 
 .logo-text {
@@ -90,15 +65,15 @@ $bg: #F8F6F3;
 }
 
 .logo-name {
-    font-size: 28px;
-    font-weight: 900;
-    color: #fff;
+    font-size: 34px; // iOS Large Title
+    font-weight: 800;
+    color: #000;
     letter-spacing: -1px;
 }
 
 .logo-sub {
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.55);
+    font-size: 17px;
+    color: $t3;
     margin-top: -2px;
 }
 
@@ -111,88 +86,92 @@ $bg: #F8F6F3;
 }
 
 .bell {
-    font-size: 28px;
-    filter: brightness(1.5);
+    font-size: 24px;
+    color: $t0;
 }
 
 .greeting {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    margin-bottom: 12px;
-    font-size: 22px;
-    color: rgba(255, 255, 255, 0.7);
+    gap: 6px;
+    margin-bottom: 24px;
+    margin-top: 16px;
+}
+
+.greeting-sub {
+    font-size: 17px; // iOS Body
+    color: $t3;
 }
 
 .greeting-bold {
-    font-size: 26px;
+    font-size: 28px; // iOS Title 1
     font-weight: 700;
-    color: #fff;
+    color: #000;
+    letter-spacing: -0.5px;
 }
 
-// ── AI Bar ──
 .ai-bar {
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(16px);
-    border: 2px solid rgba(255, 255, 255, 0.18);
-    border-radius: 999px;
-    padding: 8px 10px 8px 16px;
+    background: #FFFFFF;
+    border: none; // Completely flat
+    box-shadow: none; // Pure flat iOS shape
+    border-radius: 20px;
+    padding: 12px 12px 12px 20px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
 }
 
 .ai-gem {
-    font-size: 26px;
+    font-size: 24px;
     flex-shrink: 0;
-    filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.5));
 }
 
 .ai-input {
     flex: 1;
-    font-size: 22px;
-    color: #fff;
+    font-size: 17px; // iOS default text size
+    color: #000;
     background: transparent;
 }
 
 .ai-placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: #8E8E93; // iOS native gray placeholder
 }
 
 .ai-send {
-    width: 46px;
-    height: 46px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background: linear-gradient(135deg, $v2, $v3);
+    background: $v2;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 20px;
     color: #fff;
     flex-shrink: 0;
-    box-shadow: 0 4px 14px rgba(107, 47, 224, 0.4);
 }
 
 // ── Section ──
 .section {
-    padding: 20px 16px 0;
+    padding: 32px 20px 0; // Pure inset group
+    position: relative;
+    z-index: 1;
 }
 
 .section-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 14px;
+    margin-bottom: 20px; // More distance to content
 }
 
 .section-title {
-    font-size: 28px;
+    font-size: 26px; // Slightly smaller for elegance
     font-weight: 700;
     color: $t0;
 }
 
 .section-more {
-    font-size: 22px;
+    font-size: 20px;
     color: $v2;
     font-weight: 600;
 }
@@ -201,16 +180,18 @@ $bg: #F8F6F3;
 .svc-wide {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 20px; // Larger gap
     background: #fff;
-    border-radius: 22px;
-    padding: 20px;
-    margin-bottom: 12px;
-    box-shadow: 0 4px 16px rgba(107, 47, 224, 0.08);
+    border-radius: 20px; // iOS standard
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: none; // Pure flat
     position: relative;
+    transition: transform 0.2s ease, opacity 0.2s ease;
 
     &:active {
-        opacity: 0.92;
+        transform: scale(0.98);
+        opacity: 0.8;
     }
 }
 
@@ -219,24 +200,23 @@ $bg: #F8F6F3;
 }
 
 .svc-wide-icon-box {
-    width: 72px;
-    height: 72px;
+    width: 68px;
+    height: 68px;
     border-radius: 20px;
-    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
+    background: #F3F0FF;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 6px 20px rgba(255, 94, 91, 0.35);
 }
 
 .svc-wide-svg {
-    width: 36px;
-    height: 36px;
+    width: 34px;
+    height: 34px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    // Package/box SVG icon in white
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/%3E%3Cpolyline points='3.27 6.96 12 12.01 20.73 6.96'/%3E%3Cline x1='12' y1='22.08' x2='12' y2='12'/%3E%3C/svg%3E");
+    // Package/box SVG icon in primary color
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B2FE0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z'/%3E%3Cpolyline points='3.27 6.96 12 12.01 20.73 6.96'/%3E%3Cline x1='12' y1='22.08' x2='12' y2='12'/%3E%3C/svg%3E");
 }
 
 .svc-wide-main {
@@ -244,17 +224,17 @@ $bg: #F8F6F3;
 }
 
 .svc-wide-name {
-    font-size: 28px;
-    font-weight: 800;
+    font-size: 22px; // graceful sizing
+    font-weight: 700;
     color: $t0;
     display: block;
 }
 
 .svc-wide-sub {
-    font-size: 17px;
+    font-size: 16px; // refined
     color: $t3;
     display: block;
-    margin: 4px 0 10px;
+    margin: 6px 0 12px;
 }
 
 .svc-wide-pills {
@@ -263,23 +243,23 @@ $bg: #F8F6F3;
 }
 
 .pill {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 600;
     color: $v2;
-    background: rgba(107, 47, 224, 0.08);
-    padding: 5px 14px;
-    border-radius: 8px;
+    background: rgba(107, 47, 224, 0.06);
+    padding: 6px 14px;
+    border-radius: 10px;
 }
 
 .svc-wide-badge {
     position: absolute;
     top: 14px;
     right: 16px;
-    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
+    background: $v2;
     color: #fff;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 700;
-    padding: 4px 16px;
+    padding: 6px 16px;
     border-radius: 20px;
 }
 
@@ -292,19 +272,21 @@ $bg: #F8F6F3;
 
 .svc-card {
     background: #fff;
-    border-radius: 22px;
-    padding: 22px 20px;
-    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
+    border-radius: 20px;
+    padding: 24px 20px;
+    box-shadow: none; // Pure flat
+    transition: transform 0.2s ease, opacity 0.2s ease;
 
     &:active {
-        opacity: 0.9;
+        transform: scale(0.98);
+        opacity: 0.8;
     }
 }
 
 .svc-svg-icon {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 14px;
+    width: 44px;
+    height: 44px;
+    margin-bottom: 20px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -321,17 +303,17 @@ $bg: #F8F6F3;
 }
 
 .svc-name {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     color: $t0;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .svc-desc {
-    font-size: 17px;
+    font-size: 16px;
     color: $t3;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 // ── Quick Chips ──
@@ -344,42 +326,39 @@ $bg: #F8F6F3;
 .quick-chip {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: #fff;
-    border-radius: 18px;
-    padding: 14px 18px;
-    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
+    gap: 16px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 16px 20px;
+    box-shadow: none; // pure flat
     flex-shrink: 0;
 }
 
 .qc-icon {
     width: 48px;
     height: 48px;
-    border-radius: 15px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    background: #F8F9FA;
 }
 
 .orange-qc {
-    background: linear-gradient(135deg, #FF8C42, #FF5E5B);
-    box-shadow: 0 3px 12px rgba(255, 94, 91, 0.3);
+    color: #F59E0B;
 }
 
 .purple-qc {
-    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
-    box-shadow: 0 3px 12px rgba(124, 58, 237, 0.3);
+    color: $v2;
 }
 
 .qc-emoji {
-    font-size: 22px;
-    filter: brightness(10);
+    font-size: 24px; // richer emojis
 }
 
 .quick-name {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     color: $t0;
     display: block;
@@ -387,7 +366,7 @@ $bg: #F8F6F3;
 }
 
 .quick-sub {
-    font-size: 18px;
+    font-size: 16px;
     color: $t3;
     display: block;
     white-space: nowrap;
@@ -397,24 +376,26 @@ $bg: #F8F6F3;
 .active-order {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: #fff;
-    border-radius: 16px;
-    padding: 14px 16px;
-    margin-bottom: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    border-left: 4px solid $v2;
+    gap: 16px;
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    box-shadow: none; // Pure flat
+    border-left: none; // Remove decorative border, use clean layout
+    transition: transform 0.2s ease, opacity 0.2s ease;
 
     &:active {
-        transform: scale(0.99);
+        transform: scale(0.98);
+        opacity: 0.8;
     }
 }
 
 .ao-icon-wrap {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, #f3f0ff, #e8e0ff);
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: rgba(107, 47, 224, 0.06);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -422,7 +403,7 @@ $bg: #F8F6F3;
 }
 
 .ao-icon {
-    font-size: 26px;
+    font-size: 28px;
 }
 
 .ao-info {
@@ -431,7 +412,7 @@ $bg: #F8F6F3;
 }
 
 .ao-name {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     color: $t0;
     display: block;
@@ -441,10 +422,10 @@ $bg: #F8F6F3;
 }
 
 .ao-meta {
-    font-size: 16px;
+    font-size: 15px; // smaller context text
     color: $t3;
     display: block;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
 .ao-status-wrap {
@@ -485,48 +466,48 @@ $bg: #F8F6F3;
 // ── Deals ──
 .deals-scroll {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     overflow-x: auto;
-    padding-bottom: 4px;
+    padding-bottom: 20px;
 }
 
 .deal-card {
-    width: 260px;
+    width: 280px;
     flex-shrink: 0;
     background: #fff;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(60, 30, 10, 0.05);
+    box-shadow: none; // pure flat
 }
 
 .deal-img {
-    height: 130px;
-    padding: 12px;
+    height: 140px;
+    padding: 16px;
     display: flex;
     align-items: flex-end;
-    border-radius: 20px 20px 0 0;
+    border-radius: 28px 28px 0 0;
 }
 
 .deal-badge {
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(8px);
     color: #fff;
-    font-size: 20px;
-    font-weight: 800;
-    padding: 6px 14px;
-    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 12px;
 }
 
 .deal-body {
-    padding: 12px 14px 16px;
+    padding: 16px 20px 20px;
 }
 
 .deal-name {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 700;
     color: $t0;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .deal-prices {
@@ -537,18 +518,18 @@ $bg: #F8F6F3;
 }
 
 .deal-price {
-    font-size: 26px;
-    font-weight: 800;
+    font-size: 24px;
+    font-weight: 700;
     color: $red;
 }
 
 .deal-orig {
-    font-size: 20px;
+    font-size: 18px;
     color: $t3;
     text-decoration: line-through;
 }
 
 .deal-dist {
-    font-size: 18px;
+    font-size: 16px;
     color: $t3;
 }

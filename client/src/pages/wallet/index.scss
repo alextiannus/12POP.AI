@@ -10,23 +10,24 @@
 }
 
 .balance-card {
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(16px);
-    border: 2px solid rgba(255, 255, 255, 0.18);
-    border-radius: 28px;
-    padding: 32px 30px;
-    margin-top: 28px;
+    background: #111113; // Premium dark card look
+    border-radius: 20px; // iOS standard
+    padding: 32px 24px; // closer inset
+    margin: 16px; // inset wrap
+    box-shadow: none; // pure flat
+    position: relative;
+    z-index: 11;
 }
 
 .balance-label {
-    font-size: 22px;
+    font-size: 20px; // graceful
     color: rgba(255, 255, 255, 0.65);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .balance-value {
-    font-size: 56px;
-    font-weight: 900;
+    font-size: 48px; // beautiful sizing
+    font-weight: 700; // slightly less thick
     color: #fff;
     display: block;
     margin: 8px 0 20px;
@@ -35,24 +36,24 @@
 
 .balance-row {
     display: flex;
-    gap: 32px;
-    margin-bottom: 24px;
+    gap: 40px; // looser
+    margin-bottom: 32px; // generous gap
 }
 
 .balance-sub {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 8px;
 }
 
 .sub-label {
-    font-size: 20px;
+    font-size: 18px; // refined
     color: rgba(255, 255, 255, 0.5);
 }
 
 .sub-value {
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 24px;
+    font-weight: 600;
     color: #fff;
 }
 
@@ -64,38 +65,52 @@
 .action-btn {
     flex: 1;
     text-align: center;
-    padding: 20px;
-    border-radius: 18px;
-    font-size: 26px;
-    font-weight: 700;
+    padding: 22px 20px;
+    border-radius: 20px; // graceful roundness
+    font-size: 22px; // slightly smaller
+    font-weight: 600;
 
     &.primary {
         background: #fff;
-        color: $v2;
+        color: $t0;
+        transition: transform 0.2s ease;
+        font-weight: 600;
+        
+        &:active {
+            transform: scale(0.98);
+        }
     }
 
     &.secondary {
-        background: rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.1);
         color: #fff;
-        border: 2px solid rgba(255, 255, 255, 0.25);
+        font-weight: 500;
+        transition: transform 0.2s ease;
+
+        &:active {
+            transform: scale(0.98);
+        }
     }
 }
 
 .tx-body {
     flex: 1;
-    padding: 0 28px;
+    background: #fff;
+    border-radius: 20px 20px 0 0; // iOS sheet effect
+    margin-top: 16px;
+    padding: 0 24px;
 }
 
 .tx-header {
-    padding: 28px 0 16px;
+    padding: 32px 0 20px; // refined depth
 }
 
 .tx-title {
-    font-size: 30px;
+    font-size: 26px;
     font-weight: 700;
     color: $t0;
     display: block;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .tx-filters {
@@ -104,9 +119,9 @@
 }
 
 .tx-filter {
-    padding: 10px 22px;
-    border-radius: 999px;
-    font-size: 22px;
+    padding: 12px 24px;
+    border-radius: 999px; // full pill
+    font-size: 18px; // graceful
     font-weight: 600;
     color: $t3;
     background: $ibg;
@@ -124,16 +139,16 @@
 .tx-item {
     display: flex;
     align-items: center;
-    gap: 18px;
-    padding: 20px 0;
+    gap: 20px;
+    padding: 24px 0; // deep padding
     border-bottom: 1px solid $div;
 }
 
 .tx-icon-box {
-    width: 68px;
-    height: 68px;
+    width: 64px;
+    height: 64px;
     border-radius: 20px;
-    background: $ibg;
+    background: #F4F4F5;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -149,17 +164,17 @@
 }
 
 .tx-name {
-    font-size: 24px;
+    font-size: 20px; // graceful
     font-weight: 600;
     color: $t0;
     display: block;
 }
 
 .tx-time {
-    font-size: 20px;
+    font-size: 16px;
     color: $t3;
     display: block;
-    margin-top: 4px;
+    margin-top: 6px;
 }
 
 .tx-right {
@@ -167,7 +182,7 @@
 }
 
 .tx-amount {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
     display: block;
 
